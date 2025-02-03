@@ -1,0 +1,127 @@
+<style>
+    /* Section Styles */
+    .containered {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        gap: 20px;
+    }
+
+    /* Counter Section */
+    .counter-section {
+        flex: 1;
+        min-width: 280px;
+        /* max-width: 40%; */
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(143px, 1fr));
+        gap: 20px;
+    }
+
+    .counter {
+        text-align: center;
+        padding: 15px;
+        background: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .counter-value {
+        font-size: 40px;
+        color: #02224E;
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+
+    .counter-label {
+        font-size: 14px;
+        color: #555;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+
+        .counter-section {
+            max-width: 100%;
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+</style>
+
+
+    <div class="containered">
+        <div class="counter-section">
+            <div class="counter">
+                <h3 class="counter-value" data-target="18" data-suffix="+">0</h3>
+                <p class="counter-label">Years of Excellence</p>
+            </div>
+            <div class="counter">
+                <h3 class="counter-value" data-target="10000" data-suffix="+">0</h3>
+                <p class="counter-label">Students Taught</p>
+            </div>
+            <div class="counter">
+                <h3 class="counter-value" data-target="99" data-suffix="%">0</h3>
+                <p class="counter-label">Result</p>
+            </div>
+            <div class="counter">
+                <h3 class="counter-value" data-target="500" data-suffix="+">0</h3>
+                <p class="counter-label">Team</p>
+            </div>
+            <!-- <div class="counter">
+            <h3 class="counter-value" data-target="2" data-suffix="+">0</h3>
+            <p class="counter-label">Offline-Center</p>
+        </div> -->
+            <!-- <div class="counter">
+            <h3 class="counter-value" data-target="190" data-suffix="+">0</h3>
+            <p class="counter-label">Lorem, ipsum.</p>
+        </div> -->
+        </div>
+    </div>
+
+
+<script>
+    // Function to animate counters
+    function animateCounters() {
+        const counters = document.querySelectorAll(".counter-value");
+        const animationDuration = 2000; // Duration of animation in milliseconds
+
+        counters.forEach((counter) => {
+            const target = +counter.getAttribute("data-target");
+            const suffix = counter.getAttribute("data-suffix") || "";
+            const increment = target / (animationDuration / 50);
+
+            let currentValue = 0;
+
+            const updateCounter = () => {
+                currentValue += increment;
+                if (currentValue >= target) {
+                    counter.textContent = target + suffix;
+                } else {
+                    counter.textContent = Math.ceil(currentValue) + suffix;
+                    requestAnimationFrame(updateCounter);
+                }
+            };
+
+            updateCounter();
+        });
+    }
+
+    function observeCounters() {
+        const counterSection = document.querySelector(".counter-section");
+        const observer = new IntersectionObserver(
+            (entries) => {
+                if (entries[0].isIntersecting) {
+                    animateCounters();
+                    observer.disconnect();
+                }
+            },
+            { threshold: 0.5 }
+        );
+
+        observer.observe(counterSection);
+    }
+
+    // Run observer on page load
+    document.addEventListener("DOMContentLoaded", observeCounters);
+</script>

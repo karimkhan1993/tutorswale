@@ -1,0 +1,325 @@
+<link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+<style>
+  /* General Button Style */
+*{
+  font-family: 'Poppins';
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #48a7ff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+/* Popup Styles */
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none; /* Hidden by default */
+  background: rgba(0, 0, 0, 0.6);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup-content {
+  background: #1a1a1a;
+  color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.popup-header {
+  text-align: right;
+}
+
+.popup-header button {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.popup-body {
+  text-align: center;
+}
+
+.tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.tab {
+  padding: 10px 20px;
+  cursor: pointer;
+  background: #333;
+  color: #fff;
+  border: none;
+  margin: 0 5px;
+  border-radius: 5px;
+}
+
+.tab.active {
+  background: #48a7ff;
+}
+
+.form {
+  display: none; /* Hide all forms by default */
+}
+
+.form.active-form {
+  display: block; /* Show only the active form */
+}
+
+form input {
+  display: block;
+  width: 90%;
+  margin: 10px auto;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+form button {
+  width: 95%;
+  padding: 10px;
+  background: #48a7ff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+/* Form Footer Links */
+.form-footer {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #ccc;
+}
+
+.form-footer .toggle-form {
+  color: #48a7ff;
+  cursor: pointer;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.form-footer .toggle-form:hover {
+  color: #00a3a3;
+}
+
+/* OR Divider */
+.divider {
+  display: flex;
+  align-items: center;
+  margin: 15px 0;
+  color: #aaa;
+  font-size: 14px;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #ccc;
+  margin: 0 10px;
+}
+
+/* Social Login Buttons */
+.social-login {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.social-login button {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  color: #444;
+  background: #fff;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.social-login button img {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+.social-login button:hover {
+  background: #f0f0f0;
+}
+
+/* Button Styles for Specific Providers */
+.google-login {
+  border-color: #4285F4;
+}
+
+.google-login:hover {
+  background: #e8f0fe;
+}
+
+
+
+
+
+/* Responsive Design */
+@media (max-width: 500px) {
+  .popup-content {
+    width: 95%;
+  }
+}
+
+</style>
+ <!-- Trigger Button -->
+  <button id="openPopup">Sign Up / Log In</button>
+
+  <!-- Popup Modal -->
+  <div id="popup" class="popup">
+    <div class="popup-content">
+      <div class="popup-header">
+        <button id="closePopup">&times;</button>
+      </div>
+      <div class="popup-body">
+        <!-- Tabs for Switching Between Forms -->
+        <div class="tabs">
+          <button class="tab active" id="signUpTab">Sign Up</button>
+          <button class="tab" id="logInTab">Log In</button>
+        </div>
+        
+        <!-- Sign Up Form -->
+        <!-- Sign Up Form -->
+<div id="signUpForm" class="form active-form">
+  <h2>Sign Up for Free</h2>
+  <form>
+    <input type="text" placeholder="First Name" required>
+    <input type="text" placeholder="Last Name" required>
+    <input type="email" placeholder="Email Address" required>
+    <input type="password" placeholder="Set A Password" required>
+    <button type="submit">Get Started</button>
+  </form>
+
+  <!-- OR Divider -->
+  <div class="divider">
+    <span>OR</span>
+  </div>
+
+  <!-- Social Login Buttons -->
+  <div class="social-login">
+    <button class="google-login"><img src="assets/icon/google.png" alt="Google"> Continue with Google</button>
+  </div>
+
+  <!-- Link to Log In -->
+  <p class="form-footer">
+    Already have an account? 
+    <span class="toggle-form" id="goToLogin">Login</span>
+  </p>
+</div>
+
+<!-- Log In Form -->
+<div id="logInForm" class="form">
+  <h2>Log In</h2>
+  <form>
+    <input type="email" placeholder="Email Address" required>
+    <input type="password" placeholder="Password" required>
+    <button type="submit">Log In</button>
+  </form>
+
+  <!-- OR Divider -->
+  <div class="divider">
+    <span>OR</span>
+  </div>
+
+  <!-- Social Login Buttons -->
+  <div class="social-login">
+    <button class="google-login"><img src="assets/icon/google.png" alt="Google"> Continue with Google</button>
+  </div>
+
+  <!-- Link to Sign Up -->
+  <p class="form-footer">
+    Don't have an account? 
+    <span class="toggle-form" id="goToSignUp">Sign Up</span>
+  </p>
+</div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+
+// Elements
+const popup = document.getElementById('popup');
+const openPopupButton = document.getElementById('openPopup');
+const closePopupButton = document.getElementById('closePopup');
+const signUpTab = document.getElementById('signUpTab');
+const logInTab = document.getElementById('logInTab');
+const signUpForm = document.getElementById('signUpForm');
+const logInForm = document.getElementById('logInForm');
+const goToLogin = document.getElementById('goToLogin');
+const goToSignUp = document.getElementById('goToSignUp');
+
+// Open popup
+openPopupButton.addEventListener('click', () => {
+  popup.style.display = 'flex';
+});
+
+// Close popup
+closePopupButton.addEventListener('click', () => {
+  popup.style.display = 'none';
+});
+
+// Close popup when clicking outside the content
+window.addEventListener('click', (e) => {
+  if (e.target === popup) {
+    popup.style.display = 'none';
+  }
+});
+
+// Tab Switching
+signUpTab.addEventListener('click', () => {
+  signUpTab.classList.add('active');
+  logInTab.classList.remove('active');
+  signUpForm.classList.add('active-form');
+  logInForm.classList.remove('active-form');
+});
+
+logInTab.addEventListener('click', () => {
+  logInTab.classList.add('active');
+  signUpTab.classList.remove('active');
+  logInForm.classList.add('active-form');
+  signUpForm.classList.remove('active-form');
+});
+
+// Toggle Forms using Links
+goToLogin.addEventListener('click', () => {
+  logInTab.click(); 
+});
+
+goToSignUp.addEventListener('click', () => {
+  signUpTab.click(); 
+});
+
+
+  </script>
+</body>
+</html>

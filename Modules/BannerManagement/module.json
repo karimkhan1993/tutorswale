@@ -1,0 +1,13 @@
+{
+    "name": "BannerManagement",
+    "alias": "bannermanagement",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\BannerManagement\\Providers\\BannerManagementServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

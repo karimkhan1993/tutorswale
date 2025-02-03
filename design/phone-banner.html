@@ -1,0 +1,86 @@
+
+    <style>
+        #imageSlider {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            #imageSlider {
+                display: block;
+                width: 100%;
+                overflow: hidden;
+                position: relative;
+                height: 300px;
+            }
+
+            .sliderContainer {
+                display: flex;
+                transition: transform 0.5s ease-in-out;
+                height: 100%;
+            }
+
+            .sliderContainer img {
+                width: 100%;
+                flex-shrink: 0;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            .navigationButtons {
+                position: absolute;
+                top: 50%;
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                transform: translateY(-50%);
+            }
+
+            .navButton {
+                background-color: transparent;
+                border: none;
+                color: white;
+                font-size: 15px;
+                cursor: pointer;
+                padding: 10px;
+            }
+        }
+    </style>
+
+    <div id="imageSlider">
+        <div class="sliderContainer">
+            <img src="assets/phoneBanner.png" alt="Image 1">
+            <img src="assets/banner(3).png" alt="Image 2">
+            <img src="assets/banner(2).png" alt="Image 3">
+        </div>
+        <div class="navigationButtons">
+            <button class="navButton" onclick="previousSlide()">&#10094;</button>
+            <button class="navButton" onclick="nextSlide()">&#10095;</button>
+        </div>
+    </div>
+
+    <script>
+        let currentSlideIndex = 0;
+
+        function displaySlide(index) {
+            const slides = document.querySelectorAll('.sliderContainer img');
+            const totalSlides = slides.length;
+            currentSlideIndex = (index + totalSlides) % totalSlides;
+            const offset = -currentSlideIndex * 100;
+            document.querySelector('.sliderContainer').style.transform = `translateX(${offset}%)`;
+        }
+
+        function nextSlide() {
+            displaySlide(currentSlideIndex + 1);
+        }
+
+        function previousSlide() {
+            displaySlide(currentSlideIndex - 1);
+        }
+
+        // Auto-slide every 5 seconds
+        setInterval(nextSlide, 5000);
+
+        // Initial display
+        displaySlide(currentSlideIndex);
+    </script>
+
