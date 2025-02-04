@@ -5,5 +5,8 @@
     "Category": true,
     "BannerManagement": true,
     "FAQ": true,
-    "Testimonial": true
+    "Testimonial": true,
+    "AboutU": true,
+    "ExclusiveClass": true,
+    "TutorHiring": true
 }

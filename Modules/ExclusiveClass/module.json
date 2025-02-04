@@ -1,0 +1,13 @@
+{
+    "name": "ExclusiveClass",
+    "alias": "exclusiveclass",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\ExclusiveClass\\Providers\\ExclusiveClassServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
