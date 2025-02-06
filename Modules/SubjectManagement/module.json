@@ -1,0 +1,13 @@
+{
+    "name": "SubjectManagement",
+    "alias": "subjectmanagement",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\SubjectManagement\\Providers\\SubjectManagementServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
