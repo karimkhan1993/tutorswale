@@ -1,4 +1,4 @@
-@props(["data"=>"", "module_name", "module_path", "module_title"=>"", "module_icon"=>"", "module_action"=>""])
+@props(["data"=>"", "module_name", "module_path", "module_title"=>"", "module_icon"=>"", "module_action"=>"", 'classes' => []])
 <div class="card">
     @if ($slot != "")
     <div class="card-body">
@@ -13,7 +13,7 @@
             <div class="col">
                 {{ html()->modelForm($data, 'PATCH', route("backend.$module_name.update", $data))->class('form')->acceptsFiles()->open() }}
 
-                @include ("$module_path.$module_name.form")
+                @include ("$module_path.$module_name.form",['classes' => $classes])
 
                 <div class="row">
                     <div class="col-4 mt-4">

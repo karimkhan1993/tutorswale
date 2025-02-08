@@ -2,10 +2,8 @@
 
 return [
 
-    'name' => 'Name',
-    'slug' => 'Slug',
-    'description' => 'Description',
-    'status' => 'Status',
+    'class_id' => 'Classes',
+    'subjects' => 'Subjects',
     'created_by' => 'Created By',
     'updated_at' => 'Updated At',
     'updated_by' => 'Updated By',

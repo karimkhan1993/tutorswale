@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Modules\ExclusiveClass\Http\Controllers\Backend\ExclusiveClassesController; // ✅ Import controller
 
 /*
 |--------------------------------------------------------------------------
@@ -54,8 +55,17 @@ Route::group(['namespace' => '\Modules\ExclusiveClass\Http\Controllers\Backend',
      *
      * ---------------------------------------------------------------------
      */
+
+
+
     $module_name = 'exclusiveclasses';
     $controller_name = 'ExclusiveClassesController';
+
+    Route::get("$module_name/getSubjectsByClass", [
+        'as' => "backend.$module_name.getSubjectsByClass",
+        'uses' => "$controller_name@getSubjectsByClass"
+    ]);
+    
     Route::get("$module_name/index_list", ['as' => "$module_name.index_list", 'uses' => "$controller_name@index_list"]);
     Route::get("$module_name/index_data", ['as' => "$module_name.index_data", 'uses' => "$controller_name@index_data"]);
     Route::get("$module_name/trashed", ['as' => "$module_name.trashed", 'uses' => "$controller_name@trashed"]);

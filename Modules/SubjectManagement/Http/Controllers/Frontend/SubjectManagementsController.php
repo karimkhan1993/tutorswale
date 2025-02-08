@@ -43,21 +43,22 @@ class SubjectManagementsController extends Controller
      */
     public function index()
     {
-        $module_title = $this->module_title;
-        $module_name = $this->module_name;
-        $module_path = $this->module_path;
-        $module_icon = $this->module_icon;
-        $module_model = $this->module_model;
-        $module_name_singular = Str::singular($module_name);
+        // $module_title = $this->module_title;
+        // $module_name = $this->module_name;
+        // $module_path = $this->module_path;
+        // $module_icon = $this->module_icon;
+        // $module_model = $this->module_model;
+        // $module_name_singular = Str::singular($module_name);
 
-        $module_action = 'List';
+        // $module_action = 'List';
 
-        $$module_name = $module_model::latest()->paginate();
+        // $$module_name = $module_model::latest()->paginate();
+        echo "hello";
 
-        return view(
-            "$module_path.$module_name.index",
-            compact('module_title', 'module_name', "$module_name", 'module_icon', 'module_action', 'module_name_singular')
-        );
+        // return view(
+        //     "$module_path.$module_name.index",
+        //     compact('module_title', 'module_name', "$module_name", 'module_icon', 'module_action', 'module_name_singular')
+        // );
     }
 
     /**
@@ -68,22 +69,23 @@ class SubjectManagementsController extends Controller
      */
     public function show($id)
     {
-        $id = decode_id($id);
+        echo "hello";
+        // $id = decode_id($id);
 
-        $module_title = $this->module_title;
-        $module_name = $this->module_name;
-        $module_path = $this->module_path;
-        $module_icon = $this->module_icon;
-        $module_model = $this->module_model;
-        $module_name_singular = Str::singular($module_name);
+        // $module_title = $this->module_title;
+        // $module_name = $this->module_name;
+        // $module_path = $this->module_path;
+        // $module_icon = $this->module_icon;
+        // $module_model = $this->module_model;
+        // $module_name_singular = Str::singular($module_name);
 
-        $module_action = 'Show';
+        // $module_action = 'Show';
 
-        $$module_name_singular = $module_model::findOrFail($id);
+        // $$module_name_singular = $module_model::findOrFail($id);
 
-        return view(
-            "$module_path.$module_name.show",
-            compact('module_title', 'module_name', 'module_icon', 'module_action', 'module_name_singular', "$module_name_singular")
-        );
+        // return view(
+        //     "$module_path.$module_name.show",
+        //     compact('module_title', 'module_name', 'module_icon', 'module_action', 'module_name_singular', "$module_name_singular")
+        // );
     }
 }

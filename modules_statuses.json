@@ -7,8 +7,8 @@
     "FAQ": true,
     "Testimonial": true,
     "AboutU": true,
-    "ExclusiveClass": true,
     "TutorHiring": true,
     "ClassManagement": true,
-    "SubjectManagement": true
+    "SubjectManagement": true,
+    "ExclusiveClass": true
 }

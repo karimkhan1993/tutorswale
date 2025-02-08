@@ -52,7 +52,10 @@
                                 #
                             </th>
                             <th>
-                                @lang("subjectmanagement::text.name")
+                                @lang("subjectmanagement::text.class_id")
+                            </th>
+                            <th>
+                                @lang("subjectmanagement::text.subjects")
                             </th>
                             <th>
                                 @lang("subjectmanagement::text.updated_at")
@@ -101,24 +104,12 @@
         autoWidth: true,
         responsive: true,
         ajax: '{{ route("backend.$module_name.index_data") }}',
-        columns: [{
-                data: 'id',
-                name: 'id'
-            },
-            {
-                data: 'name',
-                name: 'name'
-            },
-            {
-                data: 'updated_at',
-                name: 'updated_at'
-            },
-            {
-                data: 'action',
-                name: 'action',
-                orderable: false,
-                searchable: false
-            }
+        columns: [
+            { data: 'id', name: 'id' },
+        { data: 'class_name', name: 'class_name' }, // Fixed column name
+        { data: 'subjects', name: 'subjects' },
+        { data: 'updated_at', name: 'updated_at' },
+        { data: 'action', name: 'action', orderable: false, searchable: false }
         ]
     });
 </script>

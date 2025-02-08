@@ -15,23 +15,22 @@ return new class extends Migration
     {
         Schema::create('subjectmanagements', function (Blueprint $table) {
             $table->id();
-            $table->integer('class_id')->unsigned();
-            $table->json('subjects');
-            $table->integer('created_by')->unsigned()->nullable();
-            $table->integer('updated_by')->unsigned()->nullable();
-            $table->integer('deleted_by')->unsigned()->nullable();
+            $table->unsignedBigInteger('class_id'); // Fixing data type
+            $table->string( 'subjects')->nullable();
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
+            $table->unsignedBigInteger('deleted_by')->nullable();
             $table->timestamps();
             $table->softDeletes();
+
+            // Adding foreign key constraint
+            $table->foreign('class_id')->references('id')->on('classmanagements')->onDelete('cascade');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('subjectmanagements');
     }
+
 };

@@ -14,7 +14,7 @@ class FrontendController extends Controller
         // module model name, path
         $this->module_model = "Modules\BannerManagement\Models\BannerManagement";
         $this->testimonial_model = "Modules\Testimonial\Models\Testimonial";
-        $this->faq_model = "Modules\Faq\Models\Faq";
+        $this->faq_model = "Modules\FAQ\Models\FAQ";
     }
     /**
      * Retrieves the view for the index page of the frontend.

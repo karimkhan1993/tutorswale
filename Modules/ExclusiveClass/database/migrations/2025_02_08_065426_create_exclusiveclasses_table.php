@@ -15,9 +15,10 @@ return new class extends Migration
     {
         Schema::create('exclusiveclasses', function (Blueprint $table) {
             $table->id();
-
-            $table->string('name');
-            $table->string('slug')->nullable();
+            
+            $table->foreignId('subject_id')->constrained('subjectmanagements')->onDelete('cascade');
+            $table->foreignId('class_id')->constrained('classmanagements')->onDelete('cascade');
+            
             $table->text('description')->nullable();
             $table->tinyInteger('status')->default(1);
 

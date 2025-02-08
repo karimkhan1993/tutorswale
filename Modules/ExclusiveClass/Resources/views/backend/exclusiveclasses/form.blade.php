@@ -2,27 +2,29 @@
     <div class="col-12 col-sm-4 mb-3">
         <div class="form-group">
             <?php
-            $field_name = 'name';
+            $field_name = 'class_id';
             $field_lable = label_case($field_name);
-            $field_placeholder = $field_lable;
+            $field_placeholder = "-- Select a Class --";
             $required = "required";
             ?>
             {{ html()->label($field_lable, $field_name)->class('form-label') }} {!! fielf_required($required) !!}
-            {{ html()->text($field_name)->placeholder($field_placeholder)->class('form-control')->attributes(["$required"]) }}
+            {{ html()->select($field_name, $classes)->placeholder($field_placeholder)->class('form-control select2')->attributes(["$required", "id" => "class_id"]) }}
         </div>
     </div>
+
     <div class="col-12 col-sm-4 mb-3">
         <div class="form-group">
             <?php
-            $field_name = 'slug';
+            $field_name = 'subject_id';
             $field_lable = label_case($field_name);
-            $field_placeholder = $field_lable;
-            $required = "";
+            $field_placeholder = "-- Select a Subject --";
+            $required = "required";
             ?>
             {{ html()->label($field_lable, $field_name)->class('form-label') }} {!! fielf_required($required) !!}
-            {{ html()->text($field_name)->placeholder($field_placeholder)->class('form-control')->attributes(["$required"]) }}
+            {{ html()->select($field_name, [], $selected = null)->placeholder($field_placeholder)->class('form-control select2')->attributes(["$required", "id" => "subject_id"]) }}
         </div>
-    </div>
+    </div> 
+
     <div class="col-12 col-sm-4 mb-3">
         <div class="form-group">
             <?php
@@ -31,9 +33,9 @@
             $field_placeholder = "-- Select an option --";
             $required = "required";
             $select_options = [
-                '1'=>'Published',
-                '0'=>'Unpublished',
-                '2'=>'Draft'
+                '1' => 'Published',
+                '0' => 'Unpublished',
+                '2' => 'Draft'
             ];
             ?>
             {{ html()->label($field_lable, $field_name)->class('form-label') }} {!! fielf_required($required) !!}
@@ -58,3 +60,29 @@
 </div>
 
 <x-library.select2 />
+
+<script>
+$(document).ready(function() {
+    $('#class_id').change(function() {
+        var classId = $(this).val();
+        $('#subject_id').empty().append('<option value="">Loading...</option>'); 
+
+        if (classId) {
+            $.ajax({
+                url: "{{ route('backend.exclusiveclasses.getSubjectsByClass') }}", // ✅ Ensure correct route
+                type: "GET",
+                data: { class_id: classId },
+                success: function(response) {
+                    $('#subject_id').empty().append('<option value="">-- Select a Subject --</option>');
+                    $.each(response.subjects, function(key, value) {
+                        $('#subject_id').append('<option value="' + key + '">' + value + '</option>');
+                    });
+                }
+            });
+        } else {
+            $('#subject_id').empty().append('<option value="">-- Select a Subject --</option>');
+        }
+    });
+});
+
+</script>
