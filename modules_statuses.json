@@ -1,5 +1,4 @@
 {
-    "Article": true,
     "Tag": true,
     "Comment": true,
     "Category": true,
@@ -7,8 +6,8 @@
     "FAQ": true,
     "Testimonial": true,
     "AboutU": true,
-    "TutorHiring": true,
     "ClassManagement": true,
     "SubjectManagement": true,
-    "ExclusiveClass": true
+    "ExclusiveClass": true,
+    "TutorManagement": true
 }

@@ -1,0 +1,26 @@
+<?php
+
+return [
+    'full_name'     => 'Full Name',
+    'phone_number'  => 'Phone Number',
+    'email'         => 'Email',
+    'password'      => 'Password',
+    'date_of_birth' => 'Date of Birth',
+    'age'           => 'Age',
+    'gender'        => 'Gender',
+    'street_address'=> 'Street Address',
+    'area'          => 'Area',
+    'city'          => 'City',
+    'pincode'       => 'Pincode',
+    'qualification' => 'Qualification',
+    'description'   => 'Description',
+    'experience'    => 'Experience (Years)',
+    'is_verified'   => 'Is Verified',
+    'availability'  => 'Availability',
+    'status'        => 'Status',
+    'created_by'    => 'Created By',
+    'updated_at'    => 'Updated At',
+    'updated_by'    => 'Updated By',
+    'deleted_by'    => 'Deleted By',
+    'action'        => 'Action',
+];

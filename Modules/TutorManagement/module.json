@@ -1,0 +1,13 @@
+{
+    "name": "TutorManagement",
+    "alias": "tutormanagement",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\TutorManagement\\Providers\\TutorManagementServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
