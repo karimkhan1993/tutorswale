@@ -22,7 +22,7 @@
                 @can('add_'.$module_name)
                 <x-buttons.create route='{{ route("backend.$module_name.create") }}' title="{{__('Create')}} {{ ucwords(Str::singular($module_name)) }}" />
                 @endcan
-
+{{-- 
                 @can('restore_'.$module_name)
                 <div class="btn-group">
                     <button class="btn btn-secondary dropdown-toggle" type="button" data-coreui-toggle="dropdown" aria-expanded="false">
@@ -39,7 +39,7 @@
                         </li> -->
                     </ul>
                 </div>
-                @endcan
+                @endcan --}}
             </x-slot>
         </x-backend.section-header>
 
@@ -52,10 +52,13 @@
                                 #
                             </th>
                             <th>
-                                @lang("exclusiveclass::text.name")
+                                @lang("exclusiveclass::text.description")
                             </th>
                             <th>
-                                @lang("exclusiveclass::text.updated_at")
+                                @lang("exclusiveclass::text.subject_id")
+                            </th>
+                            <th>
+                                @lang("exclusiveclass::text.class_id")
                             </th>
                             <th class="text-end">
                                 @lang("exclusiveclass::text.action")
@@ -105,14 +108,9 @@
                 data: 'id',
                 name: 'id'
             },
-            {
-                data: 'name',
-                name: 'name'
-            },
-            {
-                data: 'updated_at',
-                name: 'updated_at'
-            },
+            { data: 'description', name: 'description' }, // Fixed column name
+            { data: 'class_name', name: 'class_name' }, // Fixed column name
+            { data: 'subject_name', name: 'subject_name' },
             {
                 data: 'action',
                 name: 'action',

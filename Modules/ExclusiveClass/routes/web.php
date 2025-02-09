@@ -15,11 +15,11 @@ use Modules\ExclusiveClass\Http\Controllers\Backend\ExclusiveClassesController; 
 */
 
 /*
-*
-* Frontend Routes
-*
-* --------------------------------------------------------------------
-*/
+ *
+ * Frontend Routes
+ *
+ * --------------------------------------------------------------------
+ */
 Route::group(['namespace' => '\Modules\ExclusiveClass\Http\Controllers\Frontend', 'as' => 'frontend.', 'middleware' => 'web', 'prefix' => ''], function () {
 
     /*
@@ -35,19 +35,19 @@ Route::group(['namespace' => '\Modules\ExclusiveClass\Http\Controllers\Frontend'
 });
 
 /*
-*
-* Backend Routes
-*
-* --------------------------------------------------------------------
-*/
+ *
+ * Backend Routes
+ *
+ * --------------------------------------------------------------------
+ */
 Route::group(['namespace' => '\Modules\ExclusiveClass\Http\Controllers\Backend', 'as' => 'backend.', 'middleware' => ['web', 'auth', 'can:view_backend'], 'prefix' => 'admin'], function () {
     /*
-    * These routes need view-backend permission
-    * (good if you want to allow more than one group in the backend,
-    * then limit the backend features by different roles or permissions)
-    *
-    * Note: Administrator has all permissions so you do not have to specify the administrator role everywhere.
-    */
+     * These routes need view-backend permission
+     * (good if you want to allow more than one group in the backend,
+     * then limit the backend features by different roles or permissions)
+     *
+     * Note: Administrator has all permissions so you do not have to specify the administrator role everywhere.
+     */
 
     /*
      *
@@ -62,10 +62,10 @@ Route::group(['namespace' => '\Modules\ExclusiveClass\Http\Controllers\Backend',
     $controller_name = 'ExclusiveClassesController';
 
     Route::get("$module_name/getSubjectsByClass", [
-        'as' => "backend.$module_name.getSubjectsByClass",
+        'as' => "$module_name.getSubjectsByClass",
         'uses' => "$controller_name@getSubjectsByClass"
     ]);
-    
+
     Route::get("$module_name/index_list", ['as' => "$module_name.index_list", 'uses' => "$controller_name@index_list"]);
     Route::get("$module_name/index_data", ['as' => "$module_name.index_data", 'uses' => "$controller_name@index_data"]);
     Route::get("$module_name/trashed", ['as' => "$module_name.trashed", 'uses' => "$controller_name@trashed"]);

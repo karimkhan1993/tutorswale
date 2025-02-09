@@ -55,7 +55,7 @@ class ExclusiveClassesController extends BackendBaseController
 
         $$module_name = $module_model::paginate();
         $classes = ClassManagement::pluck('name', 'id')->toArray();
-        $subject = SubjectManagement::pluck('name', 'id')->toArray();
+        $subject = SubjectManagement::pluck('subjects', 'id')->toArray();
 
         logUserAccess($module_title . ' ' . $module_action);
         // echo "hello";
@@ -66,47 +66,46 @@ class ExclusiveClassesController extends BackendBaseController
     }
 
 
-
     public function index_data()
     {
         $module_title = $this->module_title;
         $module_name = $this->module_name;
-        $module_path = $this->module_path;
-        $module_icon = $this->module_icon;
         $module_model = $this->module_model;
-        $module_name_singular = Str::singular($module_name);
-        $module_action = 'List';
-    
-        $page_heading = label_case($module_title);
-        $title = $page_heading . ' ' . label_case($module_action);
     
         // Fetch data with class names
-        $subjectsData = $module_model::select('subjectmanagements.id', 'subjectmanagements.subjects', 'subjectmanagements.updated_at', 'classmanagements.name as class_name')
-            ->leftJoin('classmanagements', 'subjectmanagements.class_id', '=', 'classmanagements.id');
+        $dataQuery = $module_model::select(
+                'exclusiveclasses.id', 
+                'exclusiveclasses.description',
+                'classmanagements.name as class_name',
+                'subjectmanagements.subjects as subject_name',
+                'exclusiveclasses.updated_at'
+            )
+            ->leftJoin('classmanagements', 'exclusiveclasses.class_id', '=', 'classmanagements.id')
+            ->leftJoin('subjectmanagements', 'exclusiveclasses.subject_id', '=', 'subjectmanagements.id');
     
-        return Datatables::of($subjectsData)
+        return Datatables::of($dataQuery)
             ->addColumn('action', function ($data) {
                 $module_name = $this->module_name;
                 return view('backend.includes.action_column', compact('module_name', 'data'));
             })
-            ->editColumn('subjects', function ($data) {
-                // If subjects is a plain string, just return it directly
-                return $data->subjects;
+            ->editColumn('subject_name', function ($data) {
+                return is_array($data->subject_name) ? implode(', ', $data->subject_name) : $data->subject_name;
             })
             ->editColumn('updated_at', function ($data) {
-                $diff = Carbon::now()->diffInHours($data->updated_at);
-                return $diff < 25 ? $data->updated_at->diffForHumans() : $data->updated_at->isoFormat('llll');
+                return Carbon::now()->diffInHours($data->updated_at) < 25 
+                    ? $data->updated_at->diffForHumans() 
+                    : $data->updated_at->isoFormat('llll');
             })
-            ->rawColumns(['class_name', 'subjects', 'action'])
+            ->rawColumns(['description','class_name', 'subject_name', 'action'])
             ->make(true);
-    }
+    }    
     
     public function getSubjectsByClass(Request $request)
     {
         $classId = $request->class_id;
 
         // Fetch subjects based on class_id
-        $subjects = SubjectManagement::where('class_id', $classId)->pluck('subject_name', 'id');
+        $subjects = SubjectManagement::where('class_id', $classId)->pluck('subjects', 'id');
 
         return response()->json(['subjects' => $subjects]);
     }
@@ -130,6 +129,7 @@ class ExclusiveClassesController extends BackendBaseController
 
         // Fetch class data dynamically
         $classes = ClassManagement::pluck('name', 'id')->toArray();
+        
         // dd($classes );
         return view(
             "{$module_path}.{$module_name}.create",
@@ -195,28 +195,34 @@ class ExclusiveClassesController extends BackendBaseController
         $module_name = $this->module_name;
         $module_model = $this->module_model;
 
-        // Validate input
+        // ✅ Validate input
         $request->validate([
-            'class_id' => 'required|integer',
-            'subjects' => 'required|string',
-            'created_by' => 'nullable|integer',
+            'class_id'    => 'required|integer',
+            'subject_id'  => 'required|integer', // ✅ Match form field name
+            'description' => 'nullable|string',  // ✅ Corrected type
+            'status'      => 'nullable|integer',
         ]);
 
-        // Prepare data for saving
+        // ✅ Prepare data for saving
         $postData = [
-            'class_id' => $request->class_id,
-            'subjects' => $request->subjects, // Encode subjects as JSON
-            'created_by' => $request->created_by ?? auth()->id(),
-            'updated_by' => $request->updated_by ?? auth()->id(),
+            'class_id'    => $request->class_id,
+            'subject_id'  => $request->subject_id, // ✅ Match form
+            'description' => $request->description,
+            'status'      => $request->status ?? 1, // Default to active
+            'created_by'  => $request->created_by ?? auth()->id(),
+            'updated_by'  => $request->updated_by ?? auth()->id(),
         ];
 
-        // Save to database
-        $$module_name = $module_model::create($postData);
+        // ✅ Save to database
+        $module_model::create($postData);
 
-        flash(icon() . "New '" . Str::singular($module_title) . "' Added")->success()->important();
+        // ✅ Flash success message
+        flash(icon() . " New '" . Str::singular($module_title) . "' Added")->success()->important();
 
+        // ✅ Redirect to listing page
         return redirect("admin/{$module_name}");
     }
+
 
     /**
      * Update a resource.
@@ -227,21 +233,23 @@ class ExclusiveClassesController extends BackendBaseController
         $module_name = $this->module_name;
         $module_model = $this->module_model;
 
-        // Validate input
+        // ✅ Validate input
         $request->validate([
-            'class_id' => 'required|integer',
-            'subjects' => 'required|string',
-            'updated_by' => 'nullable|integer',
+            'class_id'    => 'required|integer',
+            'subject_id'  => 'required|integer', // ✅ Match form field name
+            'description' => 'nullable|string',  // ✅ Corrected type
+            'status'      => 'nullable|integer',
         ]);
-
         // Find the record
         $$module_name = $module_model::findOrFail($id);
 
         // Update values
         $$module_name->update([
-            'class_id' => $request->class_id,
-            'subjects' =>  $request->subjects, // Encode subjects as JSON
-            'updated_by' => $request->updated_by ?? auth()->id(),
+            'class_id'    => $request->class_id,
+            'subject_id'  => $request->subject_id, // ✅ Match form
+            'description' => $request->description,
+            'status'      => $request->status ?? 1, // Default to active
+            'updated_by'  => $request->updated_by ?? auth()->id(),
         ]);
 
         flash(icon() . "The '" . Str::singular($module_title) . "' Updated")->success()->important();
