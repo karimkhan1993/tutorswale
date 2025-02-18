@@ -20,3 +20,13 @@ $required_mark = ($required != "") ? '<span class="text-danger"> <strong>*</stro
     @if ($errors->has($field['name'])) <small class="invalid-feedback">{{ $errors->first($field['name']) }}</small> @endif
     @if(isset($field['help']))<small id="email-{{ $field['name'] }}" class="form-text text-muted">{{ $field['help'] }}</small> @endif
 </div>
+
+
+@if($field['name'] == 'aboutus_description')
+    @push('texteditor_scripts')
+        <script src="https://cdn.ckeditor.com/4.20.0/standard/ckeditor.js"></script>
+        <script>
+            CKEDITOR.replace('aboutus_description');
+        </script>
+    @endpush
+@endif

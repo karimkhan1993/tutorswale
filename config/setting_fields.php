@@ -26,6 +26,15 @@ return [
                 'value' => '<a href="https://github.com/nasirkhan/laravel-starter/" class="text-muted">Built with ♥ from Bangladesh</a>', // default value if you want
             ],
             [
+                'type' => 'text', // input fields type
+                'data' => 'string', // data type, string, int, boolean
+                'name' => 'address', // unique name for field
+                'label' => 'Office Address', // you know what label it is
+                'rules' => 'required', // validation rule of laravel
+                'class' => '', // any class for input
+                'value' => '<a href="https://github.com/nasirkhan/laravel-starter/" class="text-muted">Built with ♥ from Bangladesh</a>', // default value if you want
+            ],
+            [
                 'type' => 'checkbox', // input fields type
                 'data' => 'text', // data type, string, int, boolean
                 'name' => 'show_copyright', // unique name for field
@@ -33,7 +42,7 @@ return [
                 'rules' => '', // validation rule of laravel
                 'class' => '', // any class for input
                 'value' => '1', // default value if you want
-            ],
+            ], 
         ],
     ],
     'email' => [
@@ -45,8 +54,17 @@ return [
             [
                 'type' => 'email', // input fields type
                 'data' => 'string', // data type, string, int, boolean
-                'name' => 'email', // unique name for field
-                'label' => 'Email', // you know what label it is
+                'name' => 'contactemail', // unique name for field
+                'label' => 'Contact Email', // you know what label it is
+                'rules' => 'required|email', // validation rule of laravel
+                'class' => '', // any class for input
+                'value' => 'info@example.com', // default value if you want
+            ],
+            [
+                'type' => 'email', // input fields type
+                'data' => 'string', // data type, string, int, boolean
+                'name' => 'supportemail', // unique name for field
+                'label' => 'Support Email', // you know what label it is
                 'rules' => 'required|email', // validation rule of laravel
                 'class' => '', // any class for input
                 'value' => 'info@example.com', // default value if you want
@@ -54,6 +72,37 @@ return [
         ],
 
     ],
+
+    'aboutus' => [
+        'title' => 'About Us',
+        'desc' => 'About Us settings for the application',
+        'icon' => 'fas fa-info-circle',
+
+        'elements' => [
+            [
+                'type' => 'textarea', // input field type
+                'data' => 'string', // data type
+                'name' => 'aboutus_description', // unique name for field
+                'label' => 'About Us Description', // field label
+                'rules' => 'required|string|min:10', // validation rules
+                'class' => '', // CSS classes for input
+                'value' => 'Write something about your company here...', // default value
+                'help' => 'Provide a brief description about your company.', // help text
+            ],
+            [
+                'type' => 'file', // input field type
+                'data' => 'file', // data type
+                'name' => 'aboutus_image', // unique name for field
+                'label' => 'About Us Image', // field label
+                'rules' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // validation rules
+                'class' => '', // CSS classes for input
+                'value' => '', // default value
+                'help' => 'Upload an image that represents your company.', // help text
+            ],
+        ],
+    ],
+
+
     'telephone' => [
         'title' => 'Phone Number',
         'desc' => 'Phone Number settings for app',
@@ -63,14 +112,40 @@ return [
             [
                 'type' => 'text', // input fields type
                 'data' => 'string', // data type, string, int, boolean
-                'name' => 'telephone', // unique name for field
-                'label' => 'Telephone', // you know what label it is
+                'name' => 'whatsappNo', // unique name for field
+                'label' => 'Whatsapp No', // you know what label it is
+                'rules' => 'required|string', // validation rule of laravel
+                'class' => '', // any class for input
+                'value' => '9971606762', // default value if you want
+            ],
+            [
+                'type' => 'text', // input fields type
+                'data' => 'string', // data type, string, int, boolean
+                'name' => 'supportNo', // unique name for field
+                'label' => 'Support Call No.', // you know what label it is
+                'rules' => 'required|string', // validation rule of laravel
+                'class' => '', // any class for input
+                'value' => '9971606762', // default value if you want
+            ],
+            [
+                'type' => 'text', // input fields type
+                'data' => 'string', // data type, string, int, boolean
+                'name' => 'Contact1', // unique name for field
+                'label' => '#1 Contact', // you know what label it is
+                'rules' => 'required|string', // validation rule of laravel
+                'class' => '', // any class for input
+                'value' => '9971606761', // default value if you want
+            ],
+            [
+                'type' => 'text', // input fields type
+                'data' => 'string', // data type, string, int, boolean
+                'name' => 'Contact2', // unique name for field
+                'label' => '#2 Contact', // you know what label it is
                 'rules' => 'required|string', // validation rule of laravel
                 'class' => '', // any class for input
                 'value' => '9971606762', // default value if you want
             ],
         ],
-
     ],
     'social' => [
         'title' => 'Social Profiles',

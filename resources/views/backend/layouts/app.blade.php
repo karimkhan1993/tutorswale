@@ -75,6 +75,8 @@
     @livewireScripts
     
     @stack('after-scripts')
+    @stack('texteditor_scripts')
+
     <!-- / Scripts -->
 
 </body>
