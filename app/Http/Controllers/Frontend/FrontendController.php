@@ -15,6 +15,9 @@ class FrontendController extends Controller
         $this->module_model = "Modules\BannerManagement\Models\BannerManagement";
         $this->testimonial_model = "Modules\Testimonial\Models\Testimonial";
         $this->faq_model = "Modules\FAQ\Models\FAQ";
+        $this->ExclusiveClass = "Modules\ExclusiveClass\Models\ExclusiveClass";
+        $this->Setting = "App\Models\Setting";
+
     }
     /**
      * Retrieves the view for the index page of the frontend.
@@ -38,16 +41,31 @@ class FrontendController extends Controller
             'profession'
             )->where(['status'=>1])->get();
 
-            $faqs =  $this->faq_model::select(
-                'id',
-                'title',
-                'description'
-                )->where(['status'=>1])->get();
+        $faqs =  $this->faq_model::select(
+            'id',
+            'title',
+            'description'
+            )->where(['status'=>1])->get();
 
-        return view('frontend.index', compact('banners', 'testimonials', 'faqs'));
+        $ExclusiveClass = $this->ExclusiveClass::select(
+            'exclusiveclasses.description',
+            'classmanagements.name as class_name',
+            'subjectmanagements.subjects as subject_name',
+            'exclusiveclasses.location',
+            'exclusiveclasses.session_date',
+        )
+        ->leftJoin('classmanagements', 'exclusiveclasses.class_id', '=', 'classmanagements.id')
+        ->leftJoin('subjectmanagements', 'exclusiveclasses.subject_id', '=', 'subjectmanagements.id')
+        ->where('exclusiveclasses.status', 1) // Add where status = 1
+        ->orderBy('exclusiveclasses.id', 'desc') // Order by ID in descending order
+        ->limit(4) // Limit to 4 records
+        ->get(); // Fetch results
+       
+        return view('frontend.index', compact('banners', 'testimonials', 'faqs', 'ExclusiveClass'));
     }
 
-    /**
+    /**           
+
      * About Us.
      *
      * @return \Illuminate\Contracts\View\View

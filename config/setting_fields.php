@@ -94,13 +94,43 @@ return [
                 'data' => 'file', // data type
                 'name' => 'aboutus_image', // unique name for field
                 'label' => 'About Us Image', // field label
-                'rules' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // validation rules
+                'rules' => '', // validation rules
                 'class' => '', // CSS classes for input
                 'value' => '', // default value
                 'help' => 'Upload an image that represents your company.', // help text
             ],
         ],
     ],
+
+    'whyChooseUs' => [
+        'title' => 'Why Choose Us',
+        'desc' => 'Settings for the Why Choose Us section in the application.',
+        'icon' => 'fas fa-info-circle', // FontAwesome icon for UI
+
+        'elements' => [
+            [
+                'type'  => 'textarea', // Input field type
+                'data'  => 'string',   // Data type
+                'name'  => 'whyChooseUs_description', // Unique field name
+                'label' => 'Why Choose Us Description', // Field label
+                'rules' => 'required', // Validation rules
+                'class' => 'form-control', // Add Bootstrap class for styling
+                'value' => 'Write something about your company here...', // Default value
+                'help'  => 'Provide a brief description about your company.', // Help text
+            ],
+            [
+                'type'  => 'textarea', 
+                'data'  => 'string', 
+                'name'  => 'whyChooseUs_statistic', 
+                'label' => 'Why Choose Us Statistics', // Fixed duplicate label
+                'rules' => 'required', 
+                'class' => 'form-control', 
+                'value' => 'Provide statistics or achievements here...', // More meaningful placeholder
+                'help'  => 'Add key statistics that highlight your company’s success.', 
+            ],
+        ],
+    ],
+
 
 
     'telephone' => [

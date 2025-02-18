@@ -78,6 +78,8 @@ class ExclusiveClassesController extends BackendBaseController
                 'exclusiveclasses.description',
                 'classmanagements.name as class_name',
                 'subjectmanagements.subjects as subject_name',
+                'exclusiveclasses.status',
+                'exclusiveclasses.session_date',
                 'exclusiveclasses.updated_at'
             )
             ->leftJoin('classmanagements', 'exclusiveclasses.class_id', '=', 'classmanagements.id')
@@ -195,20 +197,24 @@ class ExclusiveClassesController extends BackendBaseController
         $module_name = $this->module_name;
         $module_model = $this->module_model;
 
-        // ✅ Validate input
+        // ✅ Validate input (including new fields session_date and location)
         $request->validate([
             'class_id'    => 'required|integer',
             'subject_id'  => 'required|integer', // ✅ Match form field name
             'description' => 'nullable|string',  // ✅ Corrected type
             'status'      => 'nullable|integer',
+            'session_date' => 'nullable|date',  // ✅ Validate session_date as date
+            'location'    => 'nullable|string|max:255', // ✅ Validate location as a string
         ]);
 
-        // ✅ Prepare data for saving
+        // ✅ Prepare data for saving (including new fields session_date and location)
         $postData = [
             'class_id'    => $request->class_id,
             'subject_id'  => $request->subject_id, // ✅ Match form
             'description' => $request->description,
             'status'      => $request->status ?? 1, // Default to active
+            'session_date'=> $request->session_date, // ✅ Add session_date
+            'location'    => $request->location,   // ✅ Add location
             'created_by'  => $request->created_by ?? auth()->id(),
             'updated_by'  => $request->updated_by ?? auth()->id(),
         ];
@@ -224,6 +230,7 @@ class ExclusiveClassesController extends BackendBaseController
     }
 
 
+
     /**
      * Update a resource.
      */
@@ -233,22 +240,27 @@ class ExclusiveClassesController extends BackendBaseController
         $module_name = $this->module_name;
         $module_model = $this->module_model;
 
-        // ✅ Validate input
+        // ✅ Validate input (including new fields session_date and location)
         $request->validate([
             'class_id'    => 'required|integer',
             'subject_id'  => 'required|integer', // ✅ Match form field name
             'description' => 'nullable|string',  // ✅ Corrected type
             'status'      => 'nullable|integer',
+            'session_date' => 'nullable|date',  // ✅ Validate session_date as date
+            'location'    => 'nullable|string|max:255', // ✅ Validate location as a string
         ]);
+
         // Find the record
         $$module_name = $module_model::findOrFail($id);
 
-        // Update values
+        // Update values (including new fields session_date and location)
         $$module_name->update([
             'class_id'    => $request->class_id,
             'subject_id'  => $request->subject_id, // ✅ Match form
             'description' => $request->description,
             'status'      => $request->status ?? 1, // Default to active
+            'session_date'=> $request->session_date, // ✅ Add session_date
+            'location'    => $request->location,   // ✅ Add location
             'updated_by'  => $request->updated_by ?? auth()->id(),
         ]);
 

@@ -52,6 +52,12 @@
                                 #
                             </th>
                             <th>
+                                @lang("exclusiveclass::text.status")
+                            </th>
+                            <th>
+                                @lang("exclusiveclass::text.session_date")
+                            </th>
+                            <th>
                                 @lang("exclusiveclass::text.description")
                             </th>
                             <th>
@@ -108,9 +114,15 @@
                 data: 'id',
                 name: 'id'
             },
+            { data: 'status', name: 'status',
+                render: function(data, type, full, meta) {
+                    return data == 1 ? 'Active' : 'Inactive';
+                }
+            }, // Fixed column name
+            { data: 'session_date', name: 'session_date' }, // Fixed column name
             { data: 'description', name: 'description' }, // Fixed column name
-            { data: 'class_name', name: 'class_name' }, // Fixed column name
             { data: 'subject_name', name: 'subject_name' },
+            { data: 'class_name', name: 'class_name' }, // Fixed column name
             {
                 data: 'action',
                 name: 'action',

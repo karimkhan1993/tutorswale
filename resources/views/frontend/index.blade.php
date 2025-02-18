@@ -67,53 +67,22 @@
         <p class="text-muted">Explore the best learning opportunities for students of all grades</p>
     </div>
 
-    <!-- Cards -->
-    <div class="cards-container">
-        <!-- Card 1 -->
+<!-- Cards -->
+<div class="cards-container">
+    @foreach($ExclusiveClass as $class)
         <div class="card">
-            <h5 class="card-title">Class: XII</h5>
-            <h6 class="card-subtitle">Subjects: Physics</h6>
+            <h5 class="card-title">Class: {{ $class->class_name }}</h5>
+            <h6 class="card-subtitle">Subjects: {{ $class->subject_name }}</h6>
             <p class="card-text">
-                Sessions: Five Classes a Week<br>
-                Location: xxxxx<br>
-                Date: November 9, 202X
+                Sessions: {{ $class->description }}<br>
+                Location: {{ $class->location }}<br>
+                Date: {{ \Carbon\Carbon::parse($class->session_date)->format('F j, Y') }} <!-- Format session date -->
             </p>
-            <a href="#" class="btns">Contact Now</a>
+            <a href="{{ route('frontend.contactus') }}" class="btns">Contact Now</a>
         </div>
-        <!-- Card 2 -->
-        <div class="card">
-            <h5 class="card-title">Class: XI</h5>
-            <h6 class="card-subtitle">Subjects: Physics</h6>
-            <p class="card-text">
-                Sessions: Three Classes a Week<br>
-                Location: yyyy<br>
-                Date: November 10, 202X
-            </p>
-            <a href="#" class="btns">Contact Now</a>
-        </div>
-        <!-- Card 3 -->
-        <div class="card">
-            <h5 class="card-title">Class: X</h5>
-            <h6 class="card-subtitle">Subjects: Physics</h6>
-            <p class="card-text">
-                Sessions: Two Classes a Week<br>
-                Location: zzzz<br>
-                Date: November 11, 202X
-            </p>
-            <a href="#" class="btns">Contact Now</a>
-        </div>
-        <!-- Card 4 -->
-        <div class="card">
-            <h5 class="card-title">Class: IX</h5>
-            <h6 class="card-subtitle">Subjects: Physics</h6>
-            <p class="card-text">
-                Sessions: Four Classes a Week<br>
-                Location: wwww<br>
-                Date: November 12, 202X
-            </p>
-            <a href="#" class="btns">Contact Now</a>
-        </div>
-    </div>
+    @endforeach
+</div>
+
 </div>
 
 
@@ -130,71 +99,9 @@
     <div class="responsive-container-block bigContainer">
         <div class="responsive-container-block Container">
             <div class="imgContainer">
-                <img class="mainImg" src="{{asset('assets/best-physics-teacher-jai-rai-sir.png')}}">
+                <img class="mainImg" src="{{ asset( setting('aboutus_image')) }}">
             </div>
-            <div class="responsive-container-block textSide">
-                <h2 class="text-blk heading">
-                    About Us
-                </h2>
-                <p class="text-blk subHeading">
-                    He is a Gold Medalist in M.Sc and has trained students out of which two of his students have
-                    cleared
-                    their IIT-JEE Exams and two students have cleared the NEET exam. Get the best Preparation Before
-                    Examinations. Clear your doubts in Physics.
-                </p>
-                <div class="responsive-cell-block wk-desk-6 wk-ipadp-6 wk-tab-12 wk-mobile-12">
-                    <div class="cardImgContainer">
-                        <img class="cardImg" src="{{asset('assets/icon/course.png')}}">
-                    </div>
-                    <div class="cardText">
-                        <p class="text-blk cardHeading">
-                            Qualified Tutors
-                        </p>
-                        <p class="text-blk cardSubHeading">
-                            We offer a wide range of highly qualified tutors across various subjects.
-                        </p>
-                    </div>
-                </div>
-                <div class="responsive-cell-block wk-desk-6 wk-ipadp-6 wk-tab-12 wk-mobile-12">
-                    <div class="cardImgContainer">
-                        <img class="cardImg" src="{{asset('assets/icon/graduated.png')}}">
-                    </div>
-                    <div class="cardText">
-                        <p class="text-blk cardHeading">
-                            Student Approach
-                        </p>
-                        <p class="text-blk cardSubHeading">
-                            Our platform offers an easy, flexible, and enjoyable learning.
-                        </p>
-                    </div>
-                </div>
-                <div class="responsive-cell-block wk-desk-6 wk-ipadp-6 wk-tab-12 wk-mobile-12">
-                    <div class="cardImgContainer">
-                        <img class="cardImg" src="{{asset('assets/icon/student-grades.png')}}">
-                    </div>
-                    <div class="cardText">
-                        <p class="text-blk cardHeading">
-                            Proven Results
-                        </p>
-                        <p class="text-blk cardSubHeading">
-                            We aim for real academic improvement. With the right tutor by your side.
-                        </p>
-                    </div>
-                </div>
-                <div class="responsive-cell-block wk-desk-6 wk-ipadp-6 wk-tab-12 wk-mobile-12">
-                    <div class="cardImgContainer">
-                        <img class="cardImg" src="{{asset('assets/icon/authentication.png')}}">
-                    </div>
-                    <div class="cardText">
-                        <p class="text-blk cardHeading">
-                            Trusted Reviews
-                        </p>
-                        <p class="text-blk cardSubHeading">
-                            Transparency is key. Read real feedback from other students or tutors.
-                        </p>
-                    </div>
-                </div>
-            </div>
+            {!! setting('aboutus_description') !!}
         </div>
     </div>
 </div>
@@ -209,45 +116,14 @@
         <div class="content-section">
             <h2 class="section-heading">Why Choose us?</h2>
             <div class="content">
-                <p>Learning, Tailored for You</p>
-                <p>
-                    At TutorWale, we understand that every student is unique. That’s why we connect you with tutors
-                    who tailor lessons to fit your learning style and pace. Whether you prefer in-depth discussions
-                    or quick, focused sessions, our platform helps you find the perfect tutor to meet your individual
-                    needs. With us, learning is always personal, flexible, and effective.
-                </p>
-                <a href="#" class="btn">SEE DETAILS &rarr;</a>
+
+                {!! setting('whyChooseUs_description') !!}
+
+                <a href="{{ route('frontend.abutus') }}" class="btn">SEE DETAILS &rarr;</a>
             </div>
         </div>
         <div class="counter-section">
-            <div class="counter">
-                <img src="{{asset('assets/icon/talent.png')}}" alt="Years of Excellence" class="counter-icon">
-                <div class="counter-content">
-                    <h3 class="counter-value" data-target="18" data-suffix="+">0</h3>
-                    <p class="counter-label">Years of Excellence</p>
-                </div>
-            </div>
-            <div class="counter">
-                <img src="{{asset('assets/icon/course.png')}}" alt="Students Taught" class="counter-icon">
-                <div class="counter-content">
-                    <h3 class="counter-value" data-target="10000" data-suffix="+">0</h3>
-                    <p class="counter-label">Students Taught</p>
-                </div>
-            </div>
-            <div class="counter">
-                <img src="{{asset('assets/icon/student-grades.png')}}" alt="Result" class="counter-icon">
-                <div class="counter-content">
-                    <h3 class="counter-value" data-target="99" data-suffix="%">0</h3>
-                    <p class="counter-label">Result</p>
-                </div>
-            </div>
-            <div class="counter">
-                <img src="{{asset('assets/icon/management.png')}}" alt="Team" class="counter-icon">
-                <div class="counter-content">
-                    <h3 class="counter-value" data-target="500" data-suffix="+">0</h3>
-                    <p class="counter-label">Team</p>
-                </div>
-            </div>
+            {!! setting('whyChooseUs_statistic') !!}
         </div>
     </div>
 </section>

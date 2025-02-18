@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class SettingController extends Controller
 {
@@ -65,19 +66,53 @@ class SettingController extends Controller
         );
     }
 
-    public function store(Request $request)
+    public function store(Request $request) 
     {
         $rules = Setting::getValidationRules();
         $data = $this->validate($request, $rules);
-
+    
         $validSettings = array_keys($rules);
-
+    
         foreach ($data as $key => $val) {
             if (in_array($key, $validSettings)) {
+    
+                // If the setting is aboutus_description, process image paths
+                if ($key == 'aboutus_description' || $key == 'whyChooseUs_statistic') {
+                    // Convert {{ asset('...') }} to full URL before saving
+                    $val = preg_replace_callback('/{{\s*asset\((.*?)\)\s*}}/', function ($matches) {
+                        return asset(trim($matches[1], "'\""));
+                    }, $val);
+                }
+
+                if ($key == 'aboutus_image' && $request->hasFile('aboutus_image')) {
+                    $image = $request->file('aboutus_image');
+                    $imageName = time() . '.' . $image->getClientOriginalExtension();
+                    $imagePath = 'public/setting/' . $imageName; // Storage path
+                    
+                    // Ensure the directory exists
+                    if (!Storage::exists('public/setting')) {
+                        Storage::makeDirectory('public/setting');
+                    }
+                
+                    // Delete the old image if it exists
+                    $oldImage = Setting::get('aboutus_image');
+                    if (!empty($oldImage)) {
+                        $oldImagePath = str_replace('/storage/', 'public/', $oldImage); // Convert to storage path
+                        Storage::delete($oldImagePath); // Delete the old file
+                    }
+                
+                    // Store the new image
+                    $image->storeAs('public/setting', $imageName);
+                
+                    // Convert storage path to a public URL
+                    $val = Storage::url($imagePath); // Generates: /storage/setting/image.jpg
+                }
+                
                 Setting::add($key, $val, Setting::getDataType($key));
             }
         }
-
-        return redirect()->back()->with('status', 'Settings has been saved.');
+    
+        return redirect()->back()->with('status', 'Settings have been saved.');
     }
+    
 }

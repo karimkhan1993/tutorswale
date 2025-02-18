@@ -22,6 +22,9 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->tinyInteger('status')->default(1);
 
+            $table->date('session_date')->nullable(); // New column for session date
+            $table->string('location', 255)->nullable(); 
+
             $table->integer('created_by')->unsigned()->nullable();
             $table->integer('updated_by')->unsigned()->nullable();
             $table->integer('deleted_by')->unsigned()->nullable();
