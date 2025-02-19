@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Models\Contact; // Import the Contact model
 
 class FrontendController extends Controller
 {
@@ -88,5 +90,27 @@ class FrontendController extends Controller
     public function registrationView()
     {
         return view('frontend.registration');
+    }
+
+    public function saveContact(Request $request)
+    {
+        // Validate the request data
+        $request->validate([
+            'name'    => 'required|string|max:255',
+            'email'   => 'required|email|max:255',
+            'phone'   => 'nullable|string|max:20',
+            'message' => 'required|string|max:500',
+        ]);
+
+        // Save the contact details in the database
+        Contact::create([
+            'name'    => $request->name,
+            'email'   => $request->email,
+            'phone'   => $request->phone,
+            'message' => $request->message,
+        ]);
+
+        // Redirect back with success message
+        return redirect()->back()->with('success', 'Your message has been sent successfully!');
     }
 }

@@ -34,6 +34,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend', 'as' => 'frontend.
     Route::get('contact-us', 'FrontendController@contactUs')->name('contactus');
     Route::get('tutorsection', 'FrontendController@tutorSection')->name('tutorsection');
     Route::get('registration', 'FrontendController@registrationView')->name('registration');
+    Route::post('contact-us', 'FrontendController@saveContact')->name('contactus.save');
 
     Route::group(['middleware' => ['auth']], function () {
         /*

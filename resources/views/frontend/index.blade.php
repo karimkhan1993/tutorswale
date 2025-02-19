@@ -327,13 +327,17 @@
         <h3>Contact Us</h3>
         <p>We’d love to hear from you! Fill out the form below and we’ll get back to you as soon as possible.</p>
         <div class="contact-form-wrapper">
-            <form class="contact-form">
+            <form class="contact-form" action="{{ route('frontend.contactus.save') }}" method="POST">
+                @csrf
                 <input type="text" name="name" placeholder="Your Name" required>
                 <input type="email" name="email" placeholder="Your Email" required>
                 <input type="tel" name="phone" placeholder="Your Phone Number" required>
                 <textarea name="message" placeholder="Your Message" rows="4" required></textarea>
                 <button type="submit">Send Message</button>
             </form>
+            @if(session('success'))
+                <p style="color: green;">{{ session('success') }}</p>
+            @endif
         </div>
     </div>
 </div>
