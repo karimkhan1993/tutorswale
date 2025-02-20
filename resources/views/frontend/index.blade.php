@@ -330,7 +330,7 @@
       <p class="learner-label">Call Support</p>
     </div>
     <div class="learner-contact-card">
-      <a href="tel:#" class="learner-phone-link">{{setting('telephone')}}</a>
+      <a href="tel:#" class="learner-phone-link">+91{{setting('telephone')}}</a>
     </div>
   </div>
   <div class="learner-contact-item">

@@ -9,5 +9,6 @@
     "SubjectManagement": true,
     "ExclusiveClass": true,
     "TutorManagement": true,
-    "TutorHiring": true
+    "TutorHiring": true,
+    "AboutU": true
 }

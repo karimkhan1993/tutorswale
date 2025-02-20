@@ -237,7 +237,65 @@
     </div>
 </footer>
 <script src="{{ asset('assets/js/script.js') }}"></script>
+<script>
+    const counters = document.querySelectorAll('.number');
 
+    counters.forEach(counter => {
+        counter.innerText = '0+';
+        const updateCounter = () => {
+            const target = +counter.getAttribute('data-target');
+            const current = +counter.innerText.replace('+', '');
+            const increment = target / 200;
+
+            if (current < target) {
+                counter.innerText = `${Math.ceil(current + increment)}+`;
+                setTimeout(updateCounter, 30);
+            } else {
+                counter.innerText = `${target}+`;
+            }
+        };
+        updateCounter();
+    });
+
+</script>
+    <script>
+        /* script.js */
+        const carousel = document.querySelector('.carousel');
+        let currentIndex = 0;
+        let autoplayInterval;
+    
+        // Function to show the next slide
+        function nextSlide() {
+            const items = document.querySelectorAll('.carousel-item');
+            currentIndex = (currentIndex + 1) % items.length;
+            carousel.scrollLeft = carousel.offsetWidth * currentIndex;
+        }
+    
+        // Function to show the previous slide
+        function prevSlide() {
+            const items = document.querySelectorAll('.carousel-item');
+            currentIndex = (currentIndex - 1 + items.length) % items.length;
+            carousel.scrollLeft = carousel.offsetWidth * currentIndex;
+        }
+    
+        // Function to start autoplay
+        function startAutoplay() {
+            autoplayInterval = setInterval(nextSlide, 3000); // Change slides every 3 seconds
+        }
+    
+        // Function to stop autoplay
+        function stopAutoplay() {
+            clearInterval(autoplayInterval);
+        }
+    
+        // Add event listeners for hover to stop and start autoplay
+        carousel.addEventListener('mouseover', stopAutoplay);
+        carousel.addEventListener('mouseout', startAutoplay);
+    
+        // Start autoplay on page load
+        startAutoplay();
+    
+    </script>
 <style>
     .content-sub-footer {
         color: white;

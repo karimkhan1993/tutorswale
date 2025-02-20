@@ -1,4 +1,4 @@
-@props(["data"=>"", "module_name", "module_path", "module_title"=>"", "module_icon"=>"", "module_action"=>"", 'classes' => []])
+@props(["data"=>"", "module_name", "module_path", "module_title"=>"", "module_icon"=>"", "module_action"=>"", 'classes' => [], 'feature' => ''])
 <div class="card">
     @if ($slot != "")
     <div class="card-body">
