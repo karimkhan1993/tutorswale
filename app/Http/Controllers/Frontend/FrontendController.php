@@ -64,8 +64,13 @@ class FrontendController extends Controller
         ->limit(4) // Limit to 4 records
         ->get(); // Fetch results
 
-        $tutorhiring = $this->TutorHiring::get();
-
+        $tutorhiring = $this->TutorHiring::select(
+            "id" ,
+            "heading", 
+            "image" ,
+            "description" 
+        )->get();
+        
         return view('frontend.index', compact('banners', 'testimonials', 'faqs', 'ExclusiveClass','tutorhiring'));
     }
 
@@ -113,7 +118,7 @@ class FrontendController extends Controller
             'subject' => $request->subject??"", // <-- Add this line
             'message' => $request->message,
         ]);
-
+        
         // Redirect back with success message
         return redirect()->back()->with('success', 'Your message has been sent successfully!');
     }

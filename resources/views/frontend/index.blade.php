@@ -145,18 +145,22 @@
     <p class="tutoring-description">
             Streamline the Process of Hiring a Tutor with These Easy Steps.
     </p>
+
     <div class="tutoring-cards-container">
-        @foreach ($tutorhiring as $i => $hiring):
+        {{-- @php $i = 0; @endphp --}}
+        @foreach ($tutorhiring as $i => $hiring)
         <div class="tutoring-card">
+
             <img src="{{asset('storage/tutorhirings/'.$hiring->image)}}" alt="Search Icon" class="tutoring-card-icon">
             <h3 class="tutoring-card-title">{{ $hiring->heading }}</h3>
             <p class="tutoring-card-description">
                 {{ $hiring->description }}
             </p>
+
         </div>
         @endforeach
-    </div>
 
+    </div>
 </section>
 
 
