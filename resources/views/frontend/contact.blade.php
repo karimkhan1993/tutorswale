@@ -117,21 +117,25 @@
         <div class="container">
             <div class="contact-info">
                 <h2>Keep In Touch With Us</h2>
-                <p><img src="assets/icon/location-point.png" alt="Address Icon">office no 1, first floor SHD complex shatavbdi inclave sector 49 noida-201301</p>
-                <p><img src="assets/icon/call.png" alt="Phone Icon">+91 83684 06646, +91 99111 08084</p>
-                <p><img src="assets/icon/email.png" alt="Email Icon">physicspointjrai@gmail.com</p>
-                <p><img src="assets/icon/whatsapp (1).png" alt="WhatsApp Icon"> +91 99111 08084</p>
+                <p><img src="assets/icon/location-point.png" alt="Address Icon">{!! setting('officeaddress') !!}</p>
+                <p><img src="assets/icon/call.png" alt="Phone Icon">+91 {!! setting('Contact1') !!}, +91 {!! setting('Contact2') !!}</p>
+                <p><img src="assets/icon/email.png" alt="Email Icon">{!! setting('contactemail') !!}</p>
+                <p><img src="assets/icon/whatsapp (1).png" alt="WhatsApp Icon"> +91 {!! setting('whatsappNo') !!}</p>
             </div>
             <div class="contact-form">
                 <h2>Get in Touch</h2>
-                <form action="#">
-                    <input type="text" placeholder="Name *" required>
-                    <input type="email" placeholder="E-mail *" required>
-                    <input type="text" placeholder="Phone *" required>
-                    <input type="text" placeholder="Your Subject *" required>
-                    <textarea placeholder="Message" required></textarea>
+                <form action="{{ route('frontend.contactus.save') }}" method="POST">
+                    @csrf
+                    <input type="text"  name="name" placeholder="Name *" required>
+                    <input type="email" name="email" placeholder="E-mail *" required>
+                    <input type="text" name="phone" placeholder="Phone *" required>
+                    <input type="text" name="subject" placeholder="Your Subject *" required>
+                    <textarea placeholder="Message" name="message" required></textarea>
                     <button type="submit">Send Message</button>
                 </form>
+                @if(session('success'))
+                <p style="color: green;">{{ session('success') }}</p>
+            @endif
             </div>
         </div>
     </section>

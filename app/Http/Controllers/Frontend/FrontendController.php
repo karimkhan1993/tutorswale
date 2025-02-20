@@ -107,6 +107,7 @@ class FrontendController extends Controller
             'name'    => $request->name,
             'email'   => $request->email,
             'phone'   => $request->phone,
+            'subject' => $request->subject??"", // <-- Add this line
             'message' => $request->message,
         ]);
 

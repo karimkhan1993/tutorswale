@@ -101,7 +101,12 @@
             <div class="imgContainer">
                 <img class="mainImg" src="{{ asset( setting('aboutus_image')) }}">
             </div>
-            {!! setting('aboutus_description') !!}
+            <div class="responsive-container-block textSide">
+                <h2 class="text-blk heading">
+                    About Us
+                </h2>
+                    {!! setting('aboutus_description') !!}
+            </div>
         </div>
     </div>
 </div>
@@ -280,20 +285,13 @@
 <!-- Main Heading and Sub-content -->
 <div class="title-section">
   <h1>Frequently Asked Questions</h1>
-  <p>Here are answers to some of the most common questions about education, learning, and self-development. Expand each question to see the detailed answer!</p>
+  <p>{!! setting('faq_description') !!}</p>
 </div>
 
 <!-- FAQ and Image Section -->
 <div class="faq-container">
   <!-- FAQ Section -->
   <div class="faq-content-container">
-    <div class="faq-entry">
-      <button class="faq-header" onclick="toggleFAQ(this)">
-        <span>What Does It Take to Be an Excellent Author?</span>
-        <span class="toggle-icon">+</span>
-      </button>
-      <div class="faq-body">The time it takes to repair a roof depends on the extent of the damage. For minor repairs, it might take an hour or two. For significant repairs, a team might be at your home for half a day.</div>
-    </div>
     @foreach ($faqs as $faq)
         <div class="faq-entry">
         <button class="faq-header" onclick="toggleFAQ(this)">
@@ -307,7 +305,7 @@
 
   <!-- Image Section -->
   <div class="faq-image-container">
-    <img src="{{asset('assets/FQA.webp')}}" alt="FAQ Illustration">
+    <img src="{{ url( setting('faq_image')) }}" alt="FAQ Illustration">
   </div>
 </div>
 </div>

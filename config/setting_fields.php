@@ -69,6 +69,15 @@ return [
                 'class' => '', // any class for input
                 'value' => 'info@example.com', // default value if you want
             ],
+            [
+                'type' => 'text', // input fields type
+                'data' => 'string', // data type, string, int, boolean
+                'name' => 'officeaddress', // unique name for field
+                'label' => 'Office Address', // you know what label it is
+                'rules' => 'required', // validation rule of laravel
+                'class' => '', // any class for input
+                'value' => '', // default value if you want
+            ],
         ],
 
     ],
@@ -102,6 +111,36 @@ return [
         ],
     ],
 
+    'contactus' => [
+        'title' => 'Contact Us',
+        'desc' => 'Contact Us settings for the application',
+        'icon' => 'fas fa-info-circle',
+
+        'elements' => [
+            [
+                'type' => 'file', // Input field type
+                'data' => 'file', // Data type
+                'name' => 'Front_image', // Unique name for field
+                'label' => 'Front Image', // Corrected label
+                'rules' => 'mimes:jpeg,png,jpg,gif|max:2048', // Validation rules
+                'class' => '',
+                'value' => '', 
+                'help' => 'Upload a front image that represents your company.', // Help text
+            ],
+            [
+                'type' => 'file', // Input field type
+                'data' => 'file', // Data type
+                'name' => 'Banner_image', // Unique name for field
+                'label' => 'Banner Image', // Corrected label
+                'rules' => 'mimes:jpeg,png,jpg,gif|max:2048', // Validation rules
+                'class' => '', 
+                'value' => '', 
+                'help' => 'Upload a banner image that represents your company.', // Help text
+            ],
+        ],
+    ],
+
+
     'whyChooseUs' => [
         'title' => 'Why Choose Us',
         'desc' => 'Settings for the Why Choose Us section in the application.',
@@ -131,7 +170,34 @@ return [
         ],
     ],
 
+    'faq' => [
+        'title' => 'FAQ Section',
+        'desc' => 'Frequently Asked Questions settings for the application',
+        'icon' => 'fas fa-question-circle', // Updated icon to match FAQ theme
 
+        'elements' => [
+            [
+                'type' => 'textarea', // input field type
+                'data' => 'string', // data type
+                'name' => 'faq_description', // unique name for the field
+                'label' => 'FAQ Description', // Updated label to be FAQ-specific
+                'rules' => 'required|string|min:10', // Validation rules
+                'class' => '', // CSS classes for input
+                'value' => 'Write a short introduction to your FAQ section...', // Default value
+                'help' => 'Provide a brief description of the FAQ section.', // Updated help text
+            ],
+            [
+                'type' => 'file', // input field type
+                'data' => 'file', // data type
+                'name' => 'faq_image', // unique name for field
+                'label' => 'FAQ Section Image', // Updated label
+                'rules' => 'max:2048', // Added validation for image files
+                'class' => '', // CSS classes for input
+                'value' => '', // Default value
+                'help' => 'Upload an image related to the FAQ section.', // Updated help text
+            ],
+        ],
+    ],
 
     'telephone' => [
         'title' => 'Phone Number',

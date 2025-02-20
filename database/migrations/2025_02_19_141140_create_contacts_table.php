@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('email');
             $table->string('phone')->nullable();
+            $table->string('subject'); // Added subject column
             $table->text('message');
             $table->timestamps();
         });

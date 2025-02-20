@@ -72,38 +72,37 @@ class SettingController extends Controller
         $data = $this->validate($request, $rules);
     
         $validSettings = array_keys($rules);
+        $imageFields = ['aboutus_image', 'Banner_image', 'Front_image','faq_image']; // Define image fields
     
         foreach ($data as $key => $val) {
             if (in_array($key, $validSettings)) {
     
-                // If the setting is aboutus_description, process image paths
+                // Process asset() URLs in text fields
                 if ($key == 'aboutus_description' || $key == 'whyChooseUs_statistic') {
-                    // Convert {{ asset('...') }} to full URL before saving
                     $val = preg_replace_callback('/{{\s*asset\((.*?)\)\s*}}/', function ($matches) {
                         return asset(trim($matches[1], "'\""));
                     }, $val);
                 }
-
-                if ($key == 'aboutus_image' && $request->hasFile('aboutus_image')) {
-                    $image = $request->file('aboutus_image');
-                    $imageName = time() . '.' . $image->getClientOriginalExtension();
+    
+                // Handle Image Uploads
+                if (in_array($key, $imageFields) && $request->hasFile($key)) {
+                    $image = $request->file($key);
+                    $imageName = time() . '_' . $key . '.' . $image->getClientOriginalExtension();
                     $imagePath = 'public/setting/' . $imageName; // Storage path
                     
-                    // Ensure the directory exists
-                    if (!Storage::exists('public/setting')) {
-                        Storage::makeDirectory('public/setting');
-                    }
+                    // Ensure directory exists
+                    Storage::makeDirectory('public/setting');
                 
-                    // Delete the old image if it exists
-                    $oldImage = Setting::get('aboutus_image');
+                    // Delete old image if exists
+                    $oldImage = Setting::get($key);
                     if (!empty($oldImage)) {
-                        $oldImagePath = str_replace('/storage/', 'public/', $oldImage); // Convert to storage path
-                        Storage::delete($oldImagePath); // Delete the old file
+                        $oldImagePath = str_replace('/storage/', 'public/', $oldImage);
+                        Storage::delete($oldImagePath);
                     }
-                
+    
                     // Store the new image
                     $image->storeAs('public/setting', $imageName);
-                
+                    
                     // Convert storage path to a public URL
                     $val = Storage::url($imagePath); // Generates: /storage/setting/image.jpg
                 }
@@ -114,5 +113,6 @@ class SettingController extends Controller
     
         return redirect()->back()->with('status', 'Settings have been saved.');
     }
+    
     
 }
