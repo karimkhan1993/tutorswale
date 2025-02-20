@@ -1,0 +1,13 @@
+{
+    "name": "TutorHiring",
+    "alias": "tutorhiring",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\TutorHiring\\Providers\\TutorHiringServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

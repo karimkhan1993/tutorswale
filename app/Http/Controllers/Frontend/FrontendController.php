@@ -19,6 +19,7 @@ class FrontendController extends Controller
         $this->faq_model = "Modules\FAQ\Models\FAQ";
         $this->ExclusiveClass = "Modules\ExclusiveClass\Models\ExclusiveClass";
         $this->Setting = "App\Models\Setting";
+        $this->TutorHiring = "Modules\TutorHiring\Models\TutorHiring";
 
     }
     /**
@@ -62,8 +63,10 @@ class FrontendController extends Controller
         ->orderBy('exclusiveclasses.id', 'desc') // Order by ID in descending order
         ->limit(4) // Limit to 4 records
         ->get(); // Fetch results
-       
-        return view('frontend.index', compact('banners', 'testimonials', 'faqs', 'ExclusiveClass'));
+
+        $tutorhiring = $this->TutorHiring::get();
+
+        return view('frontend.index', compact('banners', 'testimonials', 'faqs', 'ExclusiveClass','tutorhiring'));
     }
 
     /**           

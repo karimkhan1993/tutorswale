@@ -146,45 +146,17 @@
             Streamline the Process of Hiring a Tutor with These Easy Steps.
     </p>
     <div class="tutoring-cards-container">
+        @foreach ($tutorhiring as $i => $hiring):
         <div class="tutoring-card">
-            <img src="{{asset('assets/tutor.png')}}" alt="Search Icon" class="tutoring-card-icon">
-            <h3 class="tutoring-card-title">Find Your Ideal Tutor</h3>
+            <img src="{{asset('storage/tutorhirings/'.$hiring->image)}}" alt="Search Icon" class="tutoring-card-icon">
+            <h3 class="tutoring-card-title">{{ $hiring->heading }}</h3>
             <p class="tutoring-card-description">
-                Discovering the right tutor has never been easier. Simply share your preferences and requirements,
-                and
-                we’ll connect you with the perfect tutor who meets your needs. You’ll be hearing from them in no
-                time!
+                {{ $hiring->description }}
             </p>
         </div>
-        <div class="tutoring-card">
-            <img src="{{asset('assets/calendar.png')}}" alt="Schedule Icon" class="tutoring-card-icon">
-            <h3 class="tutoring-card-title">Set Up Your Sessions </h3>
-            <p class="tutoring-card-description">
-                Whether you need a single lesson or ongoing tutoring, we make scheduling a breeze. Choose the time
-                that
-                works best for you, and we’ll handle the communication with the tutor to ensure everything runs
-                smoothly.
-            </p>
-        </div>
-        <div class="tutoring-card">
-            <img src="{{asset('assets/customer-review.png')}}" alt="Review Icon" class="tutoring-card-icon">
-            <h3 class="tutoring-card-title">Check Tutor Reviews</h3>
-            <p class="tutoring-card-description">
-                It’s important to know who you’re working with. We provide detailed profiles of each tutor,
-                including
-                their qualifications, background, and student reviews. Make an informed decision by reading honest
-                feedback from others.
-            </p>
-        </div>
-        <div class="tutoring-card">
-            <img src="{{asset('assets/target.png')}}" alt="Focus Icon" class="tutoring-card-icon">
-            <h3 class="tutoring-card-title">Stay Focused on Learning</h3>
-            <p class="tutoring-card-description">
-                Leave the administrative tasks to us. We manage the payments, booking, and other details, so you can
-                focus solely on your lessons and academic success.
-            </p>
-        </div>
+        @endforeach
     </div>
+
 </section>
 
 

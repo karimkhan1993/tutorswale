@@ -8,5 +8,6 @@
     "ClassManagement": true,
     "SubjectManagement": true,
     "ExclusiveClass": true,
-    "TutorManagement": true
+    "TutorManagement": true,
+    "TutorHiring": true
 }
