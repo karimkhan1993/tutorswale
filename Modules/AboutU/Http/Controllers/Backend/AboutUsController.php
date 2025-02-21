@@ -37,6 +37,28 @@ class AboutUsController extends BackendBaseController
     
     }
 
+    public function index()
+    {
+        $module_title = $this->module_title;
+        $module_name = $this->module_name;
+        $module_path = $this->module_path;
+        $module_icon = $this->module_icon;
+        $module_model = $this->module_model;
+        $module_name_singular = Str::singular($module_name);
+
+        $module_action = 'List';
+
+        $$module_name = $module_model::paginate();
+        $hasRecords = $module_model::exists();
+
+        logUserAccess($module_title . ' ' . $module_action);
+
+        return view(
+            "{$module_path}.{$module_name}.index_datatable",
+            compact('module_title', 'module_name', "{$module_name}", 'module_icon', 'module_name_singular', 'module_action','hasRecords')
+        );
+    }
+
     public function index_data()
     {
         $module_title = $this->module_title;
@@ -68,13 +90,13 @@ class AboutUsController extends BackendBaseController
             'popular_course_description1' => 'nullable|string',
             'popular_course_cta_text1' => 'nullable|string|max:255',
             'popular_course_cta_link1' => 'nullable|string',
-            'banner_image' => 'nullable|mimes:jpeg,png,jpg|max:2048',
+            'banner_image' => 'required|mimes:jpeg,png,jpg|max:2048',
         ];
     
         // Validate feature fields dynamically
-        for ($i = 1; $i <= 3; $i++) {
+        for ($i = 0; $i <= 2; $i++) {
             $rules["title_$i"] = 'required|string|max:255';
-            $rules["icon_$i"] = 'nullable|mimes:jpeg,png,jpg|max:2048';
+            $rules["icon_$i"] = 'required|mimes:jpeg,png,jpg|max:2048';
             $rules["description_$i"] = 'required|string';
         }
     
@@ -82,9 +104,12 @@ class AboutUsController extends BackendBaseController
     
         // Process form data
         $postData = $request->except(['title_1', 'icon_1', 'description_1', 'title_2', 'icon_2', 'description_2', 'title_3', 'icon_3', 'description_3']);
-    
-        if ($request->hasFile('banner_image')) {
-            $postData['banner_image'] = $request->file('banner_image')->store('public/banners');
+
+        foreach (['banner_image', 'student_image_1', 'student_image_2'] as $field) {
+            if ($request->hasFile($field)) {
+                // Store new image
+                $postData[$field] = $request->file($field)->store("public/{$field}s");
+            }
         }
     
         // Create AboutU record
@@ -92,7 +117,7 @@ class AboutUsController extends BackendBaseController
     
         // Prepare features data
         $featuresData = [];
-        for ($i = 1; $i <= 3; $i++) {
+        for ($i = 0; $i <= 2; $i++) {
             $featuresData[] = [
                 'title' => $request->input("title_$i"),
                 'icon' => $request->hasFile("icon_$i") ? $request->file("icon_$i")->store('public/icons') : null,
@@ -149,6 +174,8 @@ class AboutUsController extends BackendBaseController
 
     public function update(Request $request, $id)
     {
+        $module_name = $this->module_name;        
+
         $aboutUs = AboutU::findOrFail($id);
     
         $rules = [
@@ -159,12 +186,12 @@ class AboutUsController extends BackendBaseController
             'popular_course_title1' => 'nullable|string|max:255',
             'popular_course_description1' => 'nullable|string',
             'popular_course_cta_text1' => 'nullable|string|max:255',
-            'popular_course_cta_link1' => 'nullable|url',
+            'popular_course_cta_link1' => 'nullable|string',
             'banner_image' => 'nullable|mimes:jpeg,png,jpg|max:2048',
         ];
     
         // Validate feature fields dynamically
-        for ($i = 1; $i <= 3; $i++) {
+        for ($i = 0; $i <= 2; $i++) {
             $rules["title_$i"] = 'required|string|max:255';
             $rules["icon_$i"] = 'nullable|mimes:jpeg,png,jpg|max:2048';
             $rules["description_$i"] = 'required|string';
@@ -175,16 +202,23 @@ class AboutUsController extends BackendBaseController
         // Process form data
         $postData = $request->except(['title_1', 'icon_1', 'description_1', 'title_2', 'icon_2', 'description_2', 'title_3', 'icon_3', 'description_3']);
     
-        if ($request->hasFile('banner_image')) {
-            Storage::delete($aboutUs->banner_image);
-            $postData['banner_image'] = $request->file('banner_image')->store('public/banners');
+        // Process image fields dynamically
+        foreach (['banner_image', 'student_image_1', 'student_image_2'] as $field) {
+            if ($request->hasFile($field)) {
+                // Delete old image if it exists
+                Storage::delete($aboutUs->$field);
+
+                // Store new image
+                $postData[$field] = $request->file($field)->store("public/{$field}s");
+            }
         }
+
     
         $aboutUs->update($postData);
     
         // Prepare features data
         $featuresData = [];
-        for ($i = 1; $i <= 3; $i++) {
+        for ($i = 0; $i <= 2; $i++) {
             $featuresData[] = [
                 'id' => $request->input("feature_id_$i"), // Assuming feature IDs are passed
                 'title' => $request->input("title_$i"),
@@ -197,7 +231,31 @@ class AboutUsController extends BackendBaseController
         AboutU::updateFeatures($featuresData);
     
         flash("'About Us' record updated successfully!")->success()->important();
-        return redirect()->route('admin.aboutus.index');
+        return redirect("admin/{$module_name}");
+    }
+
+    public function destroy($id)
+    {
+        $module_title = $this->module_title;
+        $module_name = $this->module_name;
+        $module_path = $this->module_path;
+        $module_icon = $this->module_icon;
+        $module_model = $this->module_model;
+        $module_name_singular = Str::singular($module_name);
+
+        $module_action = 'destroy';
+
+        $$module_name_singular = $module_model::findOrFail($id);
+
+        $$module_name_singular->delete();
+
+        AboutFeature::truncate();
+
+        flash(icon() . '' . label_case($module_name_singular) . ' Deleted Successfully!')->success()->important();
+
+        logUserAccess($module_title . ' ' . $module_action . ' | Id: ' . $$module_name_singular->id);
+
+        return redirect("admin/{$module_name}");
     }
     
 }

@@ -39,12 +39,7 @@ return new class extends Migration
             $table->string('student_image_1')->nullable();
             $table->string('student_image_2')->nullable();
 
-            $table->integer('created_by')->unsigned()->nullable();
-            $table->integer('updated_by')->unsigned()->nullable();
-            $table->integer('deleted_by')->unsigned()->nullable();
-
             $table->timestamps();
-            $table->softDeletes();
         });
         // Creating the 'aboutfeature' table
         Schema::create('aboutfeature', function (Blueprint $table) {

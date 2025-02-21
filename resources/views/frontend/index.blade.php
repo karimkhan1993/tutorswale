@@ -1,4 +1,5 @@
 @extends('frontend.layouts.app')
+<link href="{{ asset(path: 'assets/css/index.css') }}" rel="stylesheet" />
 
 @section('title') {{app_name()}} @endsection
 

@@ -26,10 +26,7 @@ class AboutU extends Model
         'popular_course_cta_link2',
         'banner_image',
         'student_image_1',
-        'student_image_2',
-        'created_by',
-        'updated_by',
-        'deleted_by'
+        'student_image_2'
     ];
 
     public static function storeFeatures($featuresData)
@@ -45,19 +42,25 @@ class AboutU extends Model
     
 
     public static function updateFeatures($featuresData)
-    {
+    { 
         foreach ($featuresData as $feature) {
             if (isset($feature['id'])) {
-                $featureModel = AboutFeature::find($feature['id']);
-                if ($featureModel) {
-                    $featureModel->update([
-                        'title'       => $feature['title'],
-                        'icon'        => $feature['icon'] ?? $featureModel->icon, // Keep existing icon if not uploaded
-                        'description' => $feature['description'],
-                    ]);
-                }
+                $aboutFeature = AboutFeature::findOrFail($feature['id']);
+                
+                // Preserve existing icon if none is uploaded
+                $icon = $feature['icon'] ?? $aboutFeature->icon;
+                $aboutFeature->update([
+                    'title'       => $feature['title'],
+                    'icon'        => $icon,
+                    'description' => $feature['description']
+                ]);
             }
         }
+    }
+    public static function getTableColumns()
+    {
+        $tableName = (new self())->getTable();
+        return \DB::select("SHOW COLUMNS FROM {$tableName}");
     }
     
 }

@@ -7,18 +7,23 @@
     @endphp
     <div class="card-body">
         <div class="features-container">
-            @for ($i = 1; $i <= 3; $i++)
+            @for ($i = 0; $i <= 2; $i++)
+                
                 <div class="feature-item mb-4 p-3 border rounded">
                     <div class="row">
                         <!-- Title Field -->
                         <div class="col-12 col-sm-6 mb-3">
                             <div class="form-group">
                                 @php
+                                    $f=$i+1;
                                     $field_name = "title_$i";
-                                    $field_label = __("Title $i");
+                                    $hidden_field = "feature_id_$i";
+                                    $field_label = __("Title $f");
                                 @endphp
                                 {{ html()->label($field_label, $field_name)->class('form-label') }} {!! fielf_required('required') !!}
                                 {{ html()->text($field_name, $feature[$i]->title ?? '')->placeholder($field_label)->class('form-control')->required() }}
+                                {{ html()->hidden($hidden_field, $feature[$i]->id ?? '') }}
+
                             </div>
                         </div>
 
@@ -27,7 +32,7 @@
                             <div class="form-group">
                                 @php
                                     $field_name = "icon_$i";
-                                    $field_label = __("Icon $i");
+                                    $field_label = __("Icon $f");
                                 @endphp
                                 {{ html()->label($field_label, $field_name)->class('form-label') }}{!! fielf_required('required') !!}
 
@@ -48,7 +53,7 @@
                             <div class="form-group">
                                 @php
                                     $field_name = "description_$i";
-                                    $field_label = __("Description $i");
+                                    $field_label = __("Description $f");
                                 @endphp
                                 {{ html()->label($field_label, $field_name)->class('form-label') }} {!! fielf_required('required') !!}
                                 {{ html()->textarea($field_name, $feature[$i]->description ?? '')->placeholder($field_label)->class('form-control')->required() }}
@@ -124,6 +129,7 @@
                 {{ html()->label(label_case($field_name), $field_name)->class('form-label') }}
                 @if (isset($data) && !empty($data->$field_name))
                     {{ html()->file($field_name)->class('form-control') }}
+                    <img src="{{  Storage::url( $data->$field_name) }}" alt="Icon Preview" width="50">
                 @else
                     {!! fielf_required('required') !!}
                     {{ html()->file($field_name)->class('form-control')->required() }}
