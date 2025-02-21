@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Contact; // Import the Contact model
+use Modules\AboutU\Models\AboutU;
+use Modules\AboutU\Models\AboutFeature;
 
 class FrontendController extends Controller
 {
@@ -20,7 +22,6 @@ class FrontendController extends Controller
         $this->ExclusiveClass = "Modules\ExclusiveClass\Models\ExclusiveClass";
         $this->Setting = "App\Models\Setting";
         $this->TutorHiring = "Modules\TutorHiring\Models\TutorHiring";
-
     }
     /**
      * Retrieves the view for the index page of the frontend.
@@ -82,7 +83,9 @@ class FrontendController extends Controller
      */
     public function aboutUs()
     {
-        return view('frontend.about');
+        $aboutUs = AboutU::first(); // ✅ Fetch a single object
+        $feature = AboutFeature::select('id','title','icon','description')->get();
+        return view('frontend.about', compact('aboutUs','feature'));
     }
 
     public function contactUs()

@@ -7,7 +7,7 @@
 
 <style>
     .banner {
-        background-image: url('assets/about-us.png');
+        background-image: url('{{ Storage::url($aboutUs->banner_image) }}');
         background-size: cover;
         background-position: center;
         padding: 70px 20px;
@@ -20,7 +20,7 @@
 <div class="banner">
     <h1>About Us</h1>
     <nav>
-        <a href="#">Home</a> / <a href="#">About Us</a>
+        <a href="{{ route('frontend.home') }}">Home</a> / <a href="javascript:void(0)">About Us</a>
     </nav>
 </div>
 
@@ -36,24 +36,13 @@
         <h2>Online Education Tailored to You</h2>
         <p class="subheading">Empowering you with knowledge anytime, anywhere.</p>
         <div class="features-container">
+            @foreach($feature as $features)
             <div class="feature-card">
-                <div class="icon"><img src="assets/knowledge.png" alt="Learn From Anywhere"></div>
-                <h3>Learn From Anywhere</h3>
-                <p>Competently unleash competitive initiatives for alternative interfaces. Enthusiastically supply
-                    resource leveling platforms.</p>
+                <div class="icon"><img src="{{Storage::url($features->icon)}}" alt="Learn From Anywhere"></div>
+                <h3>{{$features->title}}</h3>
+                <p>{{$features->description}}</p>
             </div>
-            <div class="feature-card">
-                <div class="icon"><img src="assets/expert.png" alt="Expert Instructor"></div>
-                <h3>Expert Instructor</h3>
-                <p>Competently unleash competitive initiatives for alternative interfaces. Enthusiastically supply
-                    resource leveling platforms.</p>
-            </div>
-            <div class="feature-card">
-                <div class="icon"><img src="assets/customer-service.png" alt="24/7 Live Support"></div>
-                <h3>24/7 Live Support</h3>
-                <p>Competently unleash competitive initiatives for alternative interfaces. Enthusiastically supply
-                    resource leveling platforms.</p>
-            </div>
+            @endforeach
         </div>
 
     </section>
@@ -70,70 +59,13 @@
                 <div class="imgContainer">
                     <img class="blueDots"
                         src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/aw3.svg">
-                    <img class="mainImg" src="assets/best-physics-teacher-jai-rai-sir.png">
+                    <img class="mainImg" src="{{ asset( setting('aboutus_image')) }}">
                 </div>
                 <div class="responsive-container-block textSide">
                     <h2 class="text-blk heading">
                         About Us
                     </h2>
-                    <p class="text-blk subHeading">
-                        He is a Gold Medalist in M.Sc and has trained students out of which two of his students have
-                        cleared
-                        their IIT-JEE Exams and two students have cleared the NEET exam. Get the best Preparation Before
-                        Examinations. Clear your doubts in Physics.
-                    </p>
-                    <div class="responsive-cell-block wk-desk-6 wk-ipadp-6 wk-tab-12 wk-mobile-12">
-                        <div class="cardImgContainer">
-                            <img class="cardImg" src="assets/icon/course.png">
-                        </div>
-                        <div class="cardText">
-                            <p class="text-blk cardHeading">
-                                Qualified Tutors
-                            </p>
-                            <p class="text-blk cardSubHeading">
-                                We offer a wide range of highly qualified tutors across various subjects.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="responsive-cell-block wk-desk-6 wk-ipadp-6 wk-tab-12 wk-mobile-12">
-                        <div class="cardImgContainer">
-                            <img class="cardImg" src="assets/icon/graduated.png">
-                        </div>
-                        <div class="cardText">
-                            <p class="text-blk cardHeading">
-                                Student Approach
-                            </p>
-                            <p class="text-blk cardSubHeading">
-                                Our platform offers an easy, flexible, and enjoyable learning.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="responsive-cell-block wk-desk-6 wk-ipadp-6 wk-tab-12 wk-mobile-12">
-                        <div class="cardImgContainer">
-                            <img class="cardImg" src="assets/icon/student-grades.png">
-                        </div>
-                        <div class="cardText">
-                            <p class="text-blk cardHeading">
-                                Proven Results
-                            </p>
-                            <p class="text-blk cardSubHeading">
-                                We aim for real academic improvement. With the right tutor by your side.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="responsive-cell-block wk-desk-6 wk-ipadp-6 wk-tab-12 wk-mobile-12">
-                        <div class="cardImgContainer">
-                            <img class="cardImg" src="assets/icon/authentication.png">
-                        </div>
-                        <div class="cardText">
-                            <p class="text-blk cardHeading">
-                                Trusted Reviews
-                            </p>
-                            <p class="text-blk cardSubHeading">
-                                Transparency is key. Read real feedback from other students or tutors.
-                            </p>
-                        </div>
-                    </div>
+                    {!! setting('aboutus_description') !!}
                 </div>
             </div>
         </div>
@@ -148,19 +80,19 @@
 <div class="container">
     <div class="counter-container">
         <div class="counter">
-            <span class="number" data-target="3900">0</span>
+            <span class="number" data-target="{{$aboutUs->successfully_trained}}">0</span>
             <p>Successfully Trained</p>
         </div>
         <div class="counter">
-            <span class="number" data-target="15800">0</span>
+            <span class="number" data-target="15800">{{$aboutUs->classes_completed}}</span>
             <p>Classes Completed</p>
         </div>
         <div class="counter">
-            <span class="number" data-target="97500">0</span>
+            <span class="number" data-target="97500">{{$aboutUs->satisfaction_rate}}</span>
             <p>Satisfaction Rate</p>
         </div>
         <div class="counter">
-            <span class="number" data-target="100200">0</span>
+            <span class="number" data-target="100200">{{$aboutUs->student_community}}</span>
             <p>Students Community</p>
         </div>
     </div>
@@ -281,19 +213,19 @@
   <section class="popular-courses">
     <div class="course-card blue">
       <div class="content">
-        <h4>POPULAR COURSES</h4>
-        <h2>Get The Best Courses & Upgrade Your Skills</h2>
-        <a href="#" class="btn">JOIN WITH US →</a>
+        <h4>{{$aboutUs->popular_course_title1}}</h4>
+        <h2>{{$aboutUs->popular_course_description1}}</h2>
+        <a href="{{$aboutUs->popular_course_cta_link1}}" class="btn">{{$aboutUs->popular_course_cta_text1}} →</a>
       </div>
-      <img src="assets/student-img.png" alt="Student">
+      <img src="{{Storage::url( $aboutUs->student_image_1)}}" alt="Student">
     </div>
     <div class="course-card red">
       <div class="content">
-        <h4>POPULAR COURSES</h4>
-        <h2>Engaging Courses for Intellectual Exploration</h2>
-        <a href="#" class="btn">EXPLORE COURSES →</a>
+        <h4>{{$aboutUs->popular_course_title2}}</h4>
+        <h2>{{$aboutUs->popular_course_description2}}</h2>
+        <a href="{{$aboutUs->popular_course_cta_link2}}" class="btn">{{$aboutUs->popular_course_cta_text2}} →</a>
       </div>
-      <img src="assets/student-img1.png" alt="Student">
+      <img src="{{Storage::url( $aboutUs->student_image_2)}}" alt="Student">
     </div>
   </section>
 

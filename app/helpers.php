@@ -1,4 +1,5 @@
 <?php
+use Illuminate\Support\Facades\Storage;
 
 /*
  * Global helpers file with misc functions.
@@ -106,6 +107,49 @@ if (! function_exists('show_column_value')) {
             $return_text = json_encode($value);
         } elseif ($column_type !== 'json' && \Illuminate\Support\Str::endsWith(strtolower($value), ['png', 'jpg', 'jpeg', 'gif', 'svg'])) {
             $img_path = asset($value);
+
+            $return_text = '<figure class="figure">
+                                <a href="'.$img_path.'" data-lightbox="image-set" data-title="Path: '.$value.'">
+                                    <img src="'.$img_path.'" style="max-width:200px;" class="figure-img img-fluid rounded img-thumbnail" alt="">
+                                </a>
+                                <figcaption class="figure-caption">Path: '.$value.'</figcaption>
+                            </figure>';
+        } else {
+            $return_text = $value;
+        }
+
+        return $return_text;
+    }
+
+    function show_about_column($valueObject, $column, $return_format = '')
+    {
+        $column_name = $column->Field;
+        $column_type = $column->Type;
+
+        $value = $valueObject->$column_name;
+
+        if (! $value) {
+            return $value;
+        }
+
+        if ($return_format === 'raw') {
+            return $value;
+        }
+
+        if (($column_type === 'date') && $value !== '') {
+            $datetime = \Carbon\Carbon::parse($value);
+
+            return $datetime->isoFormat('LL');
+        }
+        if (($column_type === 'datetime' || $column_type === 'timestamp') && $value !== '') {
+            $datetime = \Carbon\Carbon::parse($value);
+
+            return $datetime->isoFormat('LLLL');
+        }
+        if ($column_type === 'json') {
+            $return_text = json_encode($value);
+        } elseif ($column_type !== 'json' && \Illuminate\Support\Str::endsWith(strtolower($value), ['png', 'jpg', 'jpeg', 'gif', 'svg'])) {
+            $img_path = Storage::url($value);
 
             $return_text = '<figure class="figure">
                                 <a href="'.$img_path.'" data-lightbox="image-set" data-title="Path: '.$value.'">
