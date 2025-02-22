@@ -127,14 +127,18 @@
     <h2 class="section-title">Meet Our Expert Instructor</h2>
     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio, quo!</p>
     <div class="carousel">
+        @foreach ($TutorManagement as $tutor)
+
         <div class="carousel-item">
             <div class="profile">
-                <img src="assets/icon/teacher.png" alt="Jai Rai Sir">
-                <h3>Jai Rai Sir</h3>
-                <p>Founder & CEO</p>
+                <img src="{{asset('storage/tutorimage/'.$tutor->profile_image)}}" alt="Jai Rai Sir">
+                <h3>{{$tutor->full_name}}</h3>
+                <p>{{$tutor->qualification}}</p>
             </div>
         </div>
-        <div class="carousel-item">
+        @endforeach
+
+        {{-- <div class="carousel-item">
             <div class="profile">
                 <img src="assets/icon/teacher.png" alt="Dr. Sarin Vijay Mythry">
                 <h3>Dr. Sarin Vijay Mythry</h3>
@@ -161,7 +165,7 @@
                 <h3>Dr. Pravesh Kumar</h3>
                 <p>PhD chemistry</p>
             </div>
-        </div>
+        </div> --}}
     </div>
     <button class="prev" id="tutor-button" onclick="prevSlide()">&#10094;</button>
     <button class="next" id="tutor-button" onclick="nextSlide()">&#10095;</button>

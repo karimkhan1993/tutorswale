@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Contact; // Import the Contact model
 use Modules\AboutU\Models\AboutU;
 use Modules\AboutU\Models\AboutFeature;
-
+use Modules\TutorManagement\Models\TutorManagement;
 class FrontendController extends Controller
 {
 
@@ -22,6 +22,8 @@ class FrontendController extends Controller
         $this->ExclusiveClass = "Modules\ExclusiveClass\Models\ExclusiveClass";
         $this->Setting = "App\Models\Setting";
         $this->TutorHiring = "Modules\TutorHiring\Models\TutorHiring";
+        $this->TutorManagement = "Modules\TutorManagement\Models\TutorManagement";
+
     }
     /**
      * Retrieves the view for the index page of the frontend.
@@ -71,8 +73,13 @@ class FrontendController extends Controller
             "image" ,
             "description" 
         )->get();
-        
-        return view('frontend.index', compact('banners', 'testimonials', 'faqs', 'ExclusiveClass','tutorhiring'));
+
+        $TutorManagement = $this->TutorManagement::where('is_verified', 'yes')
+        ->orderBy('created_at', 'desc') // Assuming you want the latest records
+        ->limit(4)
+        ->get();
+
+        return view('frontend.index', compact('banners', 'testimonials', 'faqs', 'ExclusiveClass','tutorhiring','TutorManagement'));
     }
 
     /**           
@@ -85,7 +92,8 @@ class FrontendController extends Controller
     {
         $aboutUs = AboutU::first(); // ✅ Fetch a single object
         $feature = AboutFeature::select('id','title','icon','description')->get();
-        return view('frontend.about', compact('aboutUs','feature'));
+        $TutorManagement = $this->TutorManagement::get();
+        return view('frontend.about', compact('aboutUs','feature','TutorManagement'));
     }
 
     public function contactUs()
@@ -125,4 +133,27 @@ class FrontendController extends Controller
         // Redirect back with success message
         return redirect()->back()->with('success', 'Your message has been sent successfully!');
     }
+
+    public function saveTutorForm(Request $request)
+    {
+        // Store tutor details in the database
+        TutorManagement::create([
+            'full_name'      => $request->full_name,
+            'phone_number'   => $request->phone,
+            'email'          => $request->email,
+            'password'       => bcrypt($request->password),
+            'date_of_birth'  => $request->dob,
+            'age'            => $request->age,
+            'gender'         => $request->gender,
+            'street_address' => $request->street_address,
+            'area'           => $request->area,
+            'city'           => $request->city,
+            'pincode'        => $request->pincode,
+            'created_by'     => auth()->id(),
+            'updated_by'     => auth()->id()
+        ]);
+    
+        return redirect()->back()->with('success', 'Tutor registered successfully!');
+    }
+    
 }

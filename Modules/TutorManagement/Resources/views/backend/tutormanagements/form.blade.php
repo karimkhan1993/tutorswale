@@ -86,6 +86,23 @@
 </div>
 
 <div class="row">
+    <div class="col-12 col-sm-4 mb-3">
+        <div class="form-group">
+            <?php
+            $field_name = 'profile_image';
+            $field_lable = label_case($field_name);
+            $field_placeholder = $field_lable;
+            $required = "required";
+            ?>
+            @if ($data && !empty($data->profile_image))
+            {{ html()->label($field_lable, $field_name)->class('form-label') }}
+            {{ html()->file($field_name)->class('form-control') }}
+            @else
+            {{ html()->label($field_lable, $field_name)->class('form-label') }} {!! fielf_required($required) !!}
+            {{ html()->file($field_name)->class('form-control')->attributes(["$required"]) }}
+            @endif
+        </div>
+    </div>
     <!-- Gender -->
     <div class="col-12 col-sm-4 mb-3">
         <div class="form-group">

@@ -17,6 +17,16 @@ return [
                 'value' => 'Laravel Starter', // default value if you want
             ],
             [
+                'type' => 'file', // input field type
+                'data' => 'file', // data type
+                'name' => 'company_logo', // unique name for field
+                'label' => 'Company Logo', // field label
+                'rules' => '', // validation rules
+                'class' => '', // CSS classes for input
+                'value' => '', // default value
+                'help' => 'Upload an image that represents your company.', // help text
+            ],
+            [
                 'type' => 'text', // input fields type
                 'data' => 'string', // data type, string, int, boolean
                 'name' => 'footer_text', // unique name for field
@@ -169,6 +179,36 @@ return [
             ],
         ],
     ],
+
+    'registration' => [
+        'title' => 'Registration',
+        'desc' => 'Settings for the registration section in the application.',
+        'icon' => 'fas fa-info-circle', // FontAwesome icon for UI
+
+        'elements' => [
+            [
+                'type'  => 'text', // Input field type
+                'data'  => 'string', // Data type
+                'name'  => 'registration_title', // Unique field name
+                'label' => 'Title', // Field label (Capitalized for consistency)
+                'rules' => 'required|string|max:500', // Added max length for better validation
+                'class' => 'form-control', // Bootstrap styling
+                'value' => 'Write something about your company here...', // Default placeholder text
+            ],
+            [
+                'type'  => 'file', // File input type
+                'data'  => 'file', // Data type
+                'name'  => 'registration_image', // Unique name for the field
+                'label' => 'Upload Image', // Clearer label
+                'rules' => 'mimes:jpeg,png,jpg,gif|max:2048', // Restricting to image formats
+                'class' => 'form-control-file', // Bootstrap file input class
+                'value' => '', // File inputs should not have default values
+                'help'  => 'Upload a image that represents your company (Max size: 2MB).', // More descriptive help text
+            ],
+        ],
+    ],
+
+
 
     'faq' => [
         'title' => 'FAQ Section',

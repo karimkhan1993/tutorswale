@@ -72,7 +72,7 @@ class SettingController extends Controller
         $data = $this->validate($request, $rules);
     
         $validSettings = array_keys($rules);
-        $imageFields = ['aboutus_image', 'Banner_image', 'Front_image','faq_image']; // Define image fields
+        $imageFields = ['aboutus_image', 'Banner_image', 'Front_image','faq_image','registration_image','company_logo']; // Define image fields
     
         foreach ($data as $key => $val) {
             if (in_array($key, $validSettings)) {

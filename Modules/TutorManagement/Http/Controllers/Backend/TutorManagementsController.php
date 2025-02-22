@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Str;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Facades\Storage;
+
 class TutorManagementsController extends BackendBaseController
 {
     use Authorizable;
@@ -174,6 +176,7 @@ class TutorManagementsController extends BackendBaseController
         // Validate input
         $request->validate([
             'full_name'      => 'required|string|max:255',
+            'profile_image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'phone_number'   => 'required|string|max:20',
             'email'          => 'required|email|unique:tutormanagements,email',
             'password'       => 'required|string|min:6',
@@ -193,9 +196,16 @@ class TutorManagementsController extends BackendBaseController
             'description'    => 'nullable|string',
         ]);
 
+        if ($request->hasFile('profile_image')) {
+            $image = $request->file('profile_image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->storeAs('public/tutorimage', $imageName);
+        }
+
         // Prepare data for saving
         $postData = [
             'full_name'      => $request->full_name,
+            'profile_image' => $imageName ?? null,
             'phone_number'   => $request->phone_number,
             'email'          => $request->email,
             'password'       => bcrypt($request->password), // Encrypt password
@@ -238,6 +248,7 @@ class TutorManagementsController extends BackendBaseController
     // Validate input
     $request->validate([
         'full_name'      => 'required|string|max:255',
+        'profile_image' => 'image|mimes:jpeg,png,jpg|max:2048',
         'phone_number'   => 'required|string|max:20',
         'email'          => 'required|email|unique:tutormanagements,email,' . $id,
         'password'       => 'nullable|string|min:6',
@@ -281,6 +292,17 @@ class TutorManagementsController extends BackendBaseController
         'description'    => $request->description,
         'updated_by'     => auth()->id(),
     ];
+
+    if ($request->hasFile('profile_image')) {
+        $image = $request->file('profile_image');
+        $imageName = time() . '.' . $image->getClientOriginalExtension();
+        $image->storeAs('public/tutorimage', $imageName);
+
+        if ($record->profile_image) {
+            Storage::delete('public/tutorimage/' . $record->profile_image);
+        }
+        $updateData['profile_image'] = $imageName;
+    }
 
     // Only update password if provided
     if ($request->filled('password')) {

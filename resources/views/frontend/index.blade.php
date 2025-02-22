@@ -178,49 +178,21 @@
         <p class="mentor-section-subtitle">Our Dedicated Team of Mentors</p>
         <div class="mentor-cards-wrapper">
             <!-- Mentor Card 1 -->
+            @foreach ($TutorManagement as $tutor)
+
             <div class="mentor-profile-card">
+                @if ($tutor->is_verified == 'Yes')
                 <span class="mentor-profile-badge">Verified</span>
+                @endif
                 <span class="mentor-profile-social-icon">&#x21AA;</span>
-                <img class="mentor-profile-image" src="{{asset('assets/icon/teacher.png')}}" alt="Mentor 1">
-                <h3 class="mentor-profile-name">Jai Rai Sir</h3>
+                <img class="mentor-profile-image" src="{{asset('storage/tutorimage/'.$tutor->profile_image)}}" alt="Mentor 1">
+                <h3 class="mentor-profile-name">{{$tutor->full_name}}</h3>
                 <div class="mentor-profile-info">
-                    <span>&#x1F465; 35+</span>
+                    <span>&#x1F465; 10+</span>
                     <span>&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;</span>
                 </div>
             </div>
-            <!-- Mentor Card 2 -->
-            <div class="mentor-profile-card">
-                <span class="mentor-profile-badge">Verified</span>
-                <span class="mentor-profile-social-icon">&#x21AA;</span>
-                <img class="mentor-profile-image" src="{{asset('assets/icon/teacher.png')}}" alt="Mentor 2">
-                <h3 class="mentor-profile-name">Dr. Sarin Vijay Mythry</h3>
-                <div class="mentor-profile-info">
-                    <span>&#x1F465; 70+</span>
-                    <span>&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;</span>
-                </div>
-            </div>
-            <!-- Mentor Card 3 -->
-            <div class="mentor-profile-card">
-                <span class="mentor-profile-badge">Verified</span>
-                <span class="mentor-profile-social-icon">&#x21AA;</span>
-                <img class="mentor-profile-image" src="{{asset('assets/icon/teacher.png')}}" alt="Mentor 3">
-                <h3 class="mentor-profile-name">Satykam Sir</h3>
-                <div class="mentor-profile-info">
-                    <span>&#x1F465; 81+</span>
-                    <span>&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;</span>
-                </div>
-            </div>
-            <!-- Mentor Card 4 -->
-            <div class="mentor-profile-card">
-                <span class="mentor-profile-badge">Verified</span>
-                <span class="mentor-profile-social-icon">&#x21AA;</span>
-                <img class="mentor-profile-image" src="{{asset('assets/icon/teacher.png')}}" alt="Mentor 4">
-                <h3 class="mentor-profile-name">Tarun Prakash</h3>
-                <div class="mentor-profile-info">
-                    <span>&#x1F465; 96+</span>
-                    <span>&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;</span>
-                </div>
-            </div>
+            @endforeach
         </div>
     </div>
 </section>

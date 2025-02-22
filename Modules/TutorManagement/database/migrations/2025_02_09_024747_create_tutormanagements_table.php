@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('tutormanagements', function (Blueprint $table) {
             $table->id();
+            $table->string('profile_image')->nullable();
             $table->string('full_name');
             $table->string('phone_number');
             $table->string('email')->unique();
@@ -26,8 +27,8 @@ return new class extends Migration
             $table->string('area');
             $table->string('city');
             $table->string('pincode');
-            $table->string('subject');
-            $table->string('qualification'); // ✅ Added qualification column
+            $table->string('subject')->nullable();
+            $table->string('qualification')->nullable(); // ✅ Added qualification column
             $table->text('description')->nullable(); // ✅ Added description column
             $table->integer('experience')->default(0); // ✅ Added experience column (number)
             $table->enum('is_verified', ['Yes', 'No'])->default('No');
