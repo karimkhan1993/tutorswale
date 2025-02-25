@@ -25,12 +25,11 @@ class TutorHiringFactory extends Factory
     public function definition()
     {
         return [
-            'name'              => substr($this->faker->text(15), 0, -1),
-            'slug'              => '',
-            'description'       => $this->faker->paragraph,
-            'status'            => 1,
-            'created_at'        => Carbon::now(),
-            'updated_at'        => Carbon::now(),
+            'heading'       => substr($this->faker->text(15), 0, -1),
+            'image'         => 'default.jpg', // Placeholder image
+            'description'   => $this->faker->paragraph,
+            'created_at'    => Carbon::now(),
+            'updated_at'    => Carbon::now(),
         ];
     }
 }

@@ -138,7 +138,7 @@
 
 <header class="header">
     <div class="logo">
-        <img src="{{asset('assets/logo.png')}}" alt="Logo">
+        <img src="{{ asset( setting('company_logo')) }}" alt="Logo">
     </div>
     <nav class="nav">
         <a href="{{ route('frontend.home') }}">{{__('Home')}}</a>
@@ -166,7 +166,7 @@
         </div>
         <div class="contact">
             <img src="assets/icon/phone-black.svg" alt="" style="height: 30px; width: 30px;">
-            {{__('+91 1234567890')}}
+           +91 {{ setting('supportNo') }}
         </div>
     </div>
     <div class="hamburger" onclick="toggleMenu()">

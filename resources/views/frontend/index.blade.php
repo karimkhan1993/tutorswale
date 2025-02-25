@@ -1,4 +1,5 @@
 @extends('frontend.layouts.app')
+<link href="{{ asset(path: 'assets/css/index.css') }}" rel="stylesheet" />
 
 @section('title') {{app_name()}} @endsection
 
@@ -67,53 +68,22 @@
         <p class="text-muted">Explore the best learning opportunities for students of all grades</p>
     </div>
 
-    <!-- Cards -->
-    <div class="cards-container">
-        <!-- Card 1 -->
+<!-- Cards -->
+<div class="cards-container">
+    @foreach($ExclusiveClass as $class)
         <div class="card">
-            <h5 class="card-title">Class: XII</h5>
-            <h6 class="card-subtitle">Subjects: Physics</h6>
+            <h5 class="card-title">Class: {{ $class->class_name }}</h5>
+            <h6 class="card-subtitle">Subjects: {{ $class->subject_name }}</h6>
             <p class="card-text">
-                Sessions: Five Classes a Week<br>
-                Location: xxxxx<br>
-                Date: November 9, 202X
+                Sessions: {{ $class->description }}<br>
+                Location: {{ $class->location }}<br>
+                Date: {{ \Carbon\Carbon::parse($class->session_date)->format('F j, Y') }} <!-- Format session date -->
             </p>
-            <a href="#" class="btns">Contact Now</a>
+            <a href="{{ route('frontend.contactus') }}" class="btns">Contact Now</a>
         </div>
-        <!-- Card 2 -->
-        <div class="card">
-            <h5 class="card-title">Class: XI</h5>
-            <h6 class="card-subtitle">Subjects: Physics</h6>
-            <p class="card-text">
-                Sessions: Three Classes a Week<br>
-                Location: yyyy<br>
-                Date: November 10, 202X
-            </p>
-            <a href="#" class="btns">Contact Now</a>
-        </div>
-        <!-- Card 3 -->
-        <div class="card">
-            <h5 class="card-title">Class: X</h5>
-            <h6 class="card-subtitle">Subjects: Physics</h6>
-            <p class="card-text">
-                Sessions: Two Classes a Week<br>
-                Location: zzzz<br>
-                Date: November 11, 202X
-            </p>
-            <a href="#" class="btns">Contact Now</a>
-        </div>
-        <!-- Card 4 -->
-        <div class="card">
-            <h5 class="card-title">Class: IX</h5>
-            <h6 class="card-subtitle">Subjects: Physics</h6>
-            <p class="card-text">
-                Sessions: Four Classes a Week<br>
-                Location: wwww<br>
-                Date: November 12, 202X
-            </p>
-            <a href="#" class="btns">Contact Now</a>
-        </div>
-    </div>
+    @endforeach
+</div>
+
 </div>
 
 
@@ -130,70 +100,13 @@
     <div class="responsive-container-block bigContainer">
         <div class="responsive-container-block Container">
             <div class="imgContainer">
-                <img class="mainImg" src="{{asset('assets/best-physics-teacher-jai-rai-sir.png')}}">
+                <img class="mainImg" src="{{ asset( setting('aboutus_image')) }}">
             </div>
             <div class="responsive-container-block textSide">
                 <h2 class="text-blk heading">
                     About Us
                 </h2>
-                <p class="text-blk subHeading">
-                    He is a Gold Medalist in M.Sc and has trained students out of which two of his students have
-                    cleared
-                    their IIT-JEE Exams and two students have cleared the NEET exam. Get the best Preparation Before
-                    Examinations. Clear your doubts in Physics.
-                </p>
-                <div class="responsive-cell-block wk-desk-6 wk-ipadp-6 wk-tab-12 wk-mobile-12">
-                    <div class="cardImgContainer">
-                        <img class="cardImg" src="{{asset('assets/icon/course.png')}}">
-                    </div>
-                    <div class="cardText">
-                        <p class="text-blk cardHeading">
-                            Qualified Tutors
-                        </p>
-                        <p class="text-blk cardSubHeading">
-                            We offer a wide range of highly qualified tutors across various subjects.
-                        </p>
-                    </div>
-                </div>
-                <div class="responsive-cell-block wk-desk-6 wk-ipadp-6 wk-tab-12 wk-mobile-12">
-                    <div class="cardImgContainer">
-                        <img class="cardImg" src="{{asset('assets/icon/graduated.png')}}">
-                    </div>
-                    <div class="cardText">
-                        <p class="text-blk cardHeading">
-                            Student Approach
-                        </p>
-                        <p class="text-blk cardSubHeading">
-                            Our platform offers an easy, flexible, and enjoyable learning.
-                        </p>
-                    </div>
-                </div>
-                <div class="responsive-cell-block wk-desk-6 wk-ipadp-6 wk-tab-12 wk-mobile-12">
-                    <div class="cardImgContainer">
-                        <img class="cardImg" src="{{asset('assets/icon/student-grades.png')}}">
-                    </div>
-                    <div class="cardText">
-                        <p class="text-blk cardHeading">
-                            Proven Results
-                        </p>
-                        <p class="text-blk cardSubHeading">
-                            We aim for real academic improvement. With the right tutor by your side.
-                        </p>
-                    </div>
-                </div>
-                <div class="responsive-cell-block wk-desk-6 wk-ipadp-6 wk-tab-12 wk-mobile-12">
-                    <div class="cardImgContainer">
-                        <img class="cardImg" src="{{asset('assets/icon/authentication.png')}}">
-                    </div>
-                    <div class="cardText">
-                        <p class="text-blk cardHeading">
-                            Trusted Reviews
-                        </p>
-                        <p class="text-blk cardSubHeading">
-                            Transparency is key. Read real feedback from other students or tutors.
-                        </p>
-                    </div>
-                </div>
+                    {!! setting('aboutus_description') !!}
             </div>
         </div>
     </div>
@@ -209,45 +122,14 @@
         <div class="content-section">
             <h2 class="section-heading">Why Choose us?</h2>
             <div class="content">
-                <p>Learning, Tailored for You</p>
-                <p>
-                    At TutorWale, we understand that every student is unique. That’s why we connect you with tutors
-                    who tailor lessons to fit your learning style and pace. Whether you prefer in-depth discussions
-                    or quick, focused sessions, our platform helps you find the perfect tutor to meet your individual
-                    needs. With us, learning is always personal, flexible, and effective.
-                </p>
-                <a href="#" class="btn">SEE DETAILS &rarr;</a>
+
+                {!! setting('whyChooseUs_description') !!}
+
+                <a href="{{ route('frontend.abutus') }}" class="btn">SEE DETAILS &rarr;</a>
             </div>
         </div>
         <div class="counter-section">
-            <div class="counter">
-                <img src="{{asset('assets/icon/talent.png')}}" alt="Years of Excellence" class="counter-icon">
-                <div class="counter-content">
-                    <h3 class="counter-value" data-target="18" data-suffix="+">0</h3>
-                    <p class="counter-label">Years of Excellence</p>
-                </div>
-            </div>
-            <div class="counter">
-                <img src="{{asset('assets/icon/course.png')}}" alt="Students Taught" class="counter-icon">
-                <div class="counter-content">
-                    <h3 class="counter-value" data-target="10000" data-suffix="+">0</h3>
-                    <p class="counter-label">Students Taught</p>
-                </div>
-            </div>
-            <div class="counter">
-                <img src="{{asset('assets/icon/student-grades.png')}}" alt="Result" class="counter-icon">
-                <div class="counter-content">
-                    <h3 class="counter-value" data-target="99" data-suffix="%">0</h3>
-                    <p class="counter-label">Result</p>
-                </div>
-            </div>
-            <div class="counter">
-                <img src="{{asset('assets/icon/management.png')}}" alt="Team" class="counter-icon">
-                <div class="counter-content">
-                    <h3 class="counter-value" data-target="500" data-suffix="+">0</h3>
-                    <p class="counter-label">Team</p>
-                </div>
-            </div>
+            {!! setting('whyChooseUs_statistic') !!}
         </div>
     </div>
 </section>
@@ -264,45 +146,21 @@
     <p class="tutoring-description">
             Streamline the Process of Hiring a Tutor with These Easy Steps.
     </p>
+
     <div class="tutoring-cards-container">
+        {{-- @php $i = 0; @endphp --}}
+        @foreach ($tutorhiring as $i => $hiring)
         <div class="tutoring-card">
-            <img src="{{asset('assets/tutor.png')}}" alt="Search Icon" class="tutoring-card-icon">
-            <h3 class="tutoring-card-title">Find Your Ideal Tutor</h3>
+
+            <img src="{{asset('storage/tutorhirings/'.$hiring->image)}}" alt="Search Icon" class="tutoring-card-icon">
+            <h3 class="tutoring-card-title">{{ $hiring->heading }}</h3>
             <p class="tutoring-card-description">
-                Discovering the right tutor has never been easier. Simply share your preferences and requirements,
-                and
-                we’ll connect you with the perfect tutor who meets your needs. You’ll be hearing from them in no
-                time!
+                {{ $hiring->description }}
             </p>
+
         </div>
-        <div class="tutoring-card">
-            <img src="{{asset('assets/calendar.png')}}" alt="Schedule Icon" class="tutoring-card-icon">
-            <h3 class="tutoring-card-title">Set Up Your Sessions </h3>
-            <p class="tutoring-card-description">
-                Whether you need a single lesson or ongoing tutoring, we make scheduling a breeze. Choose the time
-                that
-                works best for you, and we’ll handle the communication with the tutor to ensure everything runs
-                smoothly.
-            </p>
-        </div>
-        <div class="tutoring-card">
-            <img src="{{asset('assets/customer-review.png')}}" alt="Review Icon" class="tutoring-card-icon">
-            <h3 class="tutoring-card-title">Check Tutor Reviews</h3>
-            <p class="tutoring-card-description">
-                It’s important to know who you’re working with. We provide detailed profiles of each tutor,
-                including
-                their qualifications, background, and student reviews. Make an informed decision by reading honest
-                feedback from others.
-            </p>
-        </div>
-        <div class="tutoring-card">
-            <img src="{{asset('assets/target.png')}}" alt="Focus Icon" class="tutoring-card-icon">
-            <h3 class="tutoring-card-title">Stay Focused on Learning</h3>
-            <p class="tutoring-card-description">
-                Leave the administrative tasks to us. We manage the payments, booking, and other details, so you can
-                focus solely on your lessons and academic success.
-            </p>
-        </div>
+        @endforeach
+
     </div>
 </section>
 
@@ -320,49 +178,21 @@
         <p class="mentor-section-subtitle">Our Dedicated Team of Mentors</p>
         <div class="mentor-cards-wrapper">
             <!-- Mentor Card 1 -->
+            @foreach ($TutorManagement as $tutor)
+
             <div class="mentor-profile-card">
+                @if ($tutor->is_verified == 'Yes')
                 <span class="mentor-profile-badge">Verified</span>
+                @endif
                 <span class="mentor-profile-social-icon">&#x21AA;</span>
-                <img class="mentor-profile-image" src="{{asset('assets/icon/teacher.png')}}" alt="Mentor 1">
-                <h3 class="mentor-profile-name">Jai Rai Sir</h3>
+                <img class="mentor-profile-image" src="{{asset('storage/tutorimage/'.$tutor->profile_image)}}" alt="Mentor 1">
+                <h3 class="mentor-profile-name">{{$tutor->full_name}}</h3>
                 <div class="mentor-profile-info">
-                    <span>&#x1F465; 35+</span>
+                    <span>&#x1F465; 10+</span>
                     <span>&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;</span>
                 </div>
             </div>
-            <!-- Mentor Card 2 -->
-            <div class="mentor-profile-card">
-                <span class="mentor-profile-badge">Verified</span>
-                <span class="mentor-profile-social-icon">&#x21AA;</span>
-                <img class="mentor-profile-image" src="{{asset('assets/icon/teacher.png')}}" alt="Mentor 2">
-                <h3 class="mentor-profile-name">Dr. Sarin Vijay Mythry</h3>
-                <div class="mentor-profile-info">
-                    <span>&#x1F465; 70+</span>
-                    <span>&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;</span>
-                </div>
-            </div>
-            <!-- Mentor Card 3 -->
-            <div class="mentor-profile-card">
-                <span class="mentor-profile-badge">Verified</span>
-                <span class="mentor-profile-social-icon">&#x21AA;</span>
-                <img class="mentor-profile-image" src="{{asset('assets/icon/teacher.png')}}" alt="Mentor 3">
-                <h3 class="mentor-profile-name">Satykam Sir</h3>
-                <div class="mentor-profile-info">
-                    <span>&#x1F465; 81+</span>
-                    <span>&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;</span>
-                </div>
-            </div>
-            <!-- Mentor Card 4 -->
-            <div class="mentor-profile-card">
-                <span class="mentor-profile-badge">Verified</span>
-                <span class="mentor-profile-social-icon">&#x21AA;</span>
-                <img class="mentor-profile-image" src="{{asset('assets/icon/teacher.png')}}" alt="Mentor 4">
-                <h3 class="mentor-profile-name">Tarun Prakash</h3>
-                <div class="mentor-profile-info">
-                    <span>&#x1F465; 96+</span>
-                    <span>&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;</span>
-                </div>
-            </div>
+            @endforeach
         </div>
     </div>
 </section>
@@ -404,20 +234,13 @@
 <!-- Main Heading and Sub-content -->
 <div class="title-section">
   <h1>Frequently Asked Questions</h1>
-  <p>Here are answers to some of the most common questions about education, learning, and self-development. Expand each question to see the detailed answer!</p>
+  <p>{!! setting('faq_description') !!}</p>
 </div>
 
 <!-- FAQ and Image Section -->
 <div class="faq-container">
   <!-- FAQ Section -->
   <div class="faq-content-container">
-    <div class="faq-entry">
-      <button class="faq-header" onclick="toggleFAQ(this)">
-        <span>What Does It Take to Be an Excellent Author?</span>
-        <span class="toggle-icon">+</span>
-      </button>
-      <div class="faq-body">The time it takes to repair a roof depends on the extent of the damage. For minor repairs, it might take an hour or two. For significant repairs, a team might be at your home for half a day.</div>
-    </div>
     @foreach ($faqs as $faq)
         <div class="faq-entry">
         <button class="faq-header" onclick="toggleFAQ(this)">
@@ -431,7 +254,7 @@
 
   <!-- Image Section -->
   <div class="faq-image-container">
-    <img src="{{asset('assets/FQA.webp')}}" alt="FAQ Illustration">
+    <img src="{{ url( setting('faq_image')) }}" alt="FAQ Illustration">
   </div>
 </div>
 </div>
@@ -451,13 +274,17 @@
         <h3>Contact Us</h3>
         <p>We’d love to hear from you! Fill out the form below and we’ll get back to you as soon as possible.</p>
         <div class="contact-form-wrapper">
-            <form class="contact-form">
+            <form class="contact-form" action="{{ route('frontend.contactus.save') }}" method="POST">
+                @csrf
                 <input type="text" name="name" placeholder="Your Name" required>
                 <input type="email" name="email" placeholder="Your Email" required>
                 <input type="tel" name="phone" placeholder="Your Phone Number" required>
                 <textarea name="message" placeholder="Your Message" rows="4" required></textarea>
                 <button type="submit">Send Message</button>
             </form>
+            @if(session('success'))
+                <p style="color: green;">{{ session('success') }}</p>
+            @endif
         </div>
     </div>
 </div>
@@ -476,7 +303,7 @@
       <p class="learner-label">Call Support</p>
     </div>
     <div class="learner-contact-card">
-      <a href="tel:#" class="learner-phone-link">{{setting('telephone')}}</a>
+      <a href="tel:#" class="learner-phone-link">+91{{setting('telephone')}}</a>
     </div>
   </div>
   <div class="learner-contact-item">

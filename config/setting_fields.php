@@ -17,11 +17,30 @@ return [
                 'value' => 'Laravel Starter', // default value if you want
             ],
             [
+                'type' => 'file', // input field type
+                'data' => 'file', // data type
+                'name' => 'company_logo', // unique name for field
+                'label' => 'Company Logo', // field label
+                'rules' => '', // validation rules
+                'class' => '', // CSS classes for input
+                'value' => '', // default value
+                'help' => 'Upload an image that represents your company.', // help text
+            ],
+            [
                 'type' => 'text', // input fields type
                 'data' => 'string', // data type, string, int, boolean
                 'name' => 'footer_text', // unique name for field
                 'label' => 'Footer Text', // you know what label it is
                 'rules' => 'required|min:2', // validation rule of laravel
+                'class' => '', // any class for input
+                'value' => '<a href="https://github.com/nasirkhan/laravel-starter/" class="text-muted">Built with ♥ from Bangladesh</a>', // default value if you want
+            ],
+            [
+                'type' => 'text', // input fields type
+                'data' => 'string', // data type, string, int, boolean
+                'name' => 'address', // unique name for field
+                'label' => 'Office Address', // you know what label it is
+                'rules' => 'required', // validation rule of laravel
                 'class' => '', // any class for input
                 'value' => '<a href="https://github.com/nasirkhan/laravel-starter/" class="text-muted">Built with ♥ from Bangladesh</a>', // default value if you want
             ],
@@ -33,7 +52,7 @@ return [
                 'rules' => '', // validation rule of laravel
                 'class' => '', // any class for input
                 'value' => '1', // default value if you want
-            ],
+            ], 
         ],
     ],
     'email' => [
@@ -45,15 +64,181 @@ return [
             [
                 'type' => 'email', // input fields type
                 'data' => 'string', // data type, string, int, boolean
-                'name' => 'email', // unique name for field
-                'label' => 'Email', // you know what label it is
+                'name' => 'contactemail', // unique name for field
+                'label' => 'Contact Email', // you know what label it is
                 'rules' => 'required|email', // validation rule of laravel
                 'class' => '', // any class for input
                 'value' => 'info@example.com', // default value if you want
             ],
+            [
+                'type' => 'email', // input fields type
+                'data' => 'string', // data type, string, int, boolean
+                'name' => 'supportemail', // unique name for field
+                'label' => 'Support Email', // you know what label it is
+                'rules' => 'required|email', // validation rule of laravel
+                'class' => '', // any class for input
+                'value' => 'info@example.com', // default value if you want
+            ],
+            [
+                'type' => 'text', // input fields type
+                'data' => 'string', // data type, string, int, boolean
+                'name' => 'officeaddress', // unique name for field
+                'label' => 'Office Address', // you know what label it is
+                'rules' => 'required', // validation rule of laravel
+                'class' => '', // any class for input
+                'value' => '', // default value if you want
+            ],
         ],
 
     ],
+
+    'aboutus' => [
+        'title' => 'About Us',
+        'desc' => 'About Us settings for the application',
+        'icon' => 'fas fa-info-circle',
+
+        'elements' => [
+            [
+                'type' => 'textarea', // input field type
+                'data' => 'string', // data type
+                'name' => 'aboutus_description', // unique name for field
+                'label' => 'About Us Description', // field label
+                'rules' => 'required|string|min:10', // validation rules
+                'class' => '', // CSS classes for input
+                'value' => 'Write something about your company here...', // default value
+                'help' => 'Provide a brief description about your company.', // help text
+            ],
+            [
+                'type' => 'file', // input field type
+                'data' => 'file', // data type
+                'name' => 'aboutus_image', // unique name for field
+                'label' => 'About Us Image', // field label
+                'rules' => '', // validation rules
+                'class' => '', // CSS classes for input
+                'value' => '', // default value
+                'help' => 'Upload an image that represents your company.', // help text
+            ],
+        ],
+    ],
+
+    'contactus' => [
+        'title' => 'Contact Us',
+        'desc' => 'Contact Us settings for the application',
+        'icon' => 'fas fa-info-circle',
+
+        'elements' => [
+            [
+                'type' => 'file', // Input field type
+                'data' => 'file', // Data type
+                'name' => 'Front_image', // Unique name for field
+                'label' => 'Front Image', // Corrected label
+                'rules' => 'mimes:jpeg,png,jpg,gif|max:2048', // Validation rules
+                'class' => '',
+                'value' => '', 
+                'help' => 'Upload a front image that represents your company.', // Help text
+            ],
+            [
+                'type' => 'file', // Input field type
+                'data' => 'file', // Data type
+                'name' => 'Banner_image', // Unique name for field
+                'label' => 'Banner Image', // Corrected label
+                'rules' => 'mimes:jpeg,png,jpg,gif|max:2048', // Validation rules
+                'class' => '', 
+                'value' => '', 
+                'help' => 'Upload a banner image that represents your company.', // Help text
+            ],
+        ],
+    ],
+
+
+    'whyChooseUs' => [
+        'title' => 'Why Choose Us',
+        'desc' => 'Settings for the Why Choose Us section in the application.',
+        'icon' => 'fas fa-info-circle', // FontAwesome icon for UI
+
+        'elements' => [
+            [
+                'type'  => 'textarea', // Input field type
+                'data'  => 'string',   // Data type
+                'name'  => 'whyChooseUs_description', // Unique field name
+                'label' => 'Why Choose Us Description', // Field label
+                'rules' => 'required', // Validation rules
+                'class' => 'form-control', // Add Bootstrap class for styling
+                'value' => 'Write something about your company here...', // Default value
+                'help'  => 'Provide a brief description about your company.', // Help text
+            ],
+            [
+                'type'  => 'textarea', 
+                'data'  => 'string', 
+                'name'  => 'whyChooseUs_statistic', 
+                'label' => 'Why Choose Us Statistics', // Fixed duplicate label
+                'rules' => 'required', 
+                'class' => 'form-control', 
+                'value' => 'Provide statistics or achievements here...', // More meaningful placeholder
+                'help'  => 'Add key statistics that highlight your company’s success.', 
+            ],
+        ],
+    ],
+
+    'registration' => [
+        'title' => 'Registration',
+        'desc' => 'Settings for the registration section in the application.',
+        'icon' => 'fas fa-info-circle', // FontAwesome icon for UI
+
+        'elements' => [
+            [
+                'type'  => 'text', // Input field type
+                'data'  => 'string', // Data type
+                'name'  => 'registration_title', // Unique field name
+                'label' => 'Title', // Field label (Capitalized for consistency)
+                'rules' => 'required|string|max:500', // Added max length for better validation
+                'class' => 'form-control', // Bootstrap styling
+                'value' => 'Write something about your company here...', // Default placeholder text
+            ],
+            [
+                'type'  => 'file', // File input type
+                'data'  => 'file', // Data type
+                'name'  => 'registration_image', // Unique name for the field
+                'label' => 'Upload Image', // Clearer label
+                'rules' => 'mimes:jpeg,png,jpg,gif|max:2048', // Restricting to image formats
+                'class' => 'form-control-file', // Bootstrap file input class
+                'value' => '', // File inputs should not have default values
+                'help'  => 'Upload a image that represents your company (Max size: 2MB).', // More descriptive help text
+            ],
+        ],
+    ],
+
+
+
+    'faq' => [
+        'title' => 'FAQ Section',
+        'desc' => 'Frequently Asked Questions settings for the application',
+        'icon' => 'fas fa-question-circle', // Updated icon to match FAQ theme
+
+        'elements' => [
+            [
+                'type' => 'textarea', // input field type
+                'data' => 'string', // data type
+                'name' => 'faq_description', // unique name for the field
+                'label' => 'FAQ Description', // Updated label to be FAQ-specific
+                'rules' => 'required|string|min:10', // Validation rules
+                'class' => '', // CSS classes for input
+                'value' => 'Write a short introduction to your FAQ section...', // Default value
+                'help' => 'Provide a brief description of the FAQ section.', // Updated help text
+            ],
+            [
+                'type' => 'file', // input field type
+                'data' => 'file', // data type
+                'name' => 'faq_image', // unique name for field
+                'label' => 'FAQ Section Image', // Updated label
+                'rules' => 'max:2048', // Added validation for image files
+                'class' => '', // CSS classes for input
+                'value' => '', // Default value
+                'help' => 'Upload an image related to the FAQ section.', // Updated help text
+            ],
+        ],
+    ],
+
     'telephone' => [
         'title' => 'Phone Number',
         'desc' => 'Phone Number settings for app',
@@ -63,14 +248,40 @@ return [
             [
                 'type' => 'text', // input fields type
                 'data' => 'string', // data type, string, int, boolean
-                'name' => 'telephone', // unique name for field
-                'label' => 'Telephone', // you know what label it is
+                'name' => 'whatsappNo', // unique name for field
+                'label' => 'Whatsapp No', // you know what label it is
+                'rules' => 'required|string', // validation rule of laravel
+                'class' => '', // any class for input
+                'value' => '9971606762', // default value if you want
+            ],
+            [
+                'type' => 'text', // input fields type
+                'data' => 'string', // data type, string, int, boolean
+                'name' => 'supportNo', // unique name for field
+                'label' => 'Support Call No.', // you know what label it is
+                'rules' => 'required|string', // validation rule of laravel
+                'class' => '', // any class for input
+                'value' => '9971606762', // default value if you want
+            ],
+            [
+                'type' => 'text', // input fields type
+                'data' => 'string', // data type, string, int, boolean
+                'name' => 'Contact1', // unique name for field
+                'label' => '#1 Contact', // you know what label it is
+                'rules' => 'required|string', // validation rule of laravel
+                'class' => '', // any class for input
+                'value' => '9971606761', // default value if you want
+            ],
+            [
+                'type' => 'text', // input fields type
+                'data' => 'string', // data type, string, int, boolean
+                'name' => 'Contact2', // unique name for field
+                'label' => '#2 Contact', // you know what label it is
                 'rules' => 'required|string', // validation rule of laravel
                 'class' => '', // any class for input
                 'value' => '9971606762', // default value if you want
             ],
         ],
-
     ],
     'social' => [
         'title' => 'Social Profiles',

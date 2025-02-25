@@ -1,12 +1,14 @@
 {
-    "Article": true,
     "Tag": true,
     "Comment": true,
     "Category": true,
     "BannerManagement": true,
     "FAQ": true,
     "Testimonial": true,
-    "AboutU": true,
+    "ClassManagement": true,
+    "SubjectManagement": true,
     "ExclusiveClass": true,
-    "TutorHiring": true
+    "TutorManagement": true,
+    "TutorHiring": true,
+    "AboutU": true
 }

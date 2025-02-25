@@ -20,10 +20,13 @@
             </x-slot>
             <x-slot name="toolbar">
                 @can('add_'.$module_name)
-                <x-buttons.create route='{{ route("backend.$module_name.create") }}' title="{{__('Create')}} {{ ucwords(Str::singular($module_name)) }}" />
-                @endcan
+                @if (!$hasRecords) {{-- Show button only if there are no records --}}
+                    <x-buttons.create route='{{ route("backend.$module_name.create") }}' title="{{('Create')}} {{ ucwords(Str::singular($module_name)) }}" />
+                @endif
+            @endcan
+            
 
-                @can('restore_'.$module_name)
+                {{-- @can('restore_'.$module_name)
                 <div class="btn-group">
                     <button class="btn btn-secondary dropdown-toggle" type="button" data-coreui-toggle="dropdown" aria-expanded="false">
                         <i class="fas fa-cog"></i>
@@ -39,7 +42,7 @@
                         </li> -->
                     </ul>
                 </div>
-                @endcan
+                @endcan --}}
             </x-slot>
         </x-backend.section-header>
 
@@ -52,7 +55,10 @@
                                 #
                             </th>
                             <th>
-                                @lang("aboutu::text.name")
+                                @lang("aboutu::text.successfully_trained")
+                            </th>
+                            <th>
+                                @lang("aboutu::text.popular_course_title1")
                             </th>
                             <th>
                                 @lang("aboutu::text.updated_at")
@@ -106,8 +112,12 @@
                 name: 'id'
             },
             {
-                data: 'name',
-                name: 'name'
+                data: 'successfully_trained',
+                name: 'successfully_trained'
+            },
+            {
+                data: 'popular_course_title1',
+                name: 'popular_course_title1'
             },
             {
                 data: 'updated_at',

@@ -54,6 +54,10 @@
         flex-direction: column;
         margin-bottom: 15px;
     }
+    .error {
+    color: red;
+    font-size: 14px;
+    }
 
     .form-group label {
         margin-bottom: 5px;
@@ -138,96 +142,94 @@
     <div class="container">
         <!-- Left Image Section -->
         <div class="image-section">
-            <img src="assets/registration-image.png" alt="Tutor Registration Image">
+            <img src="{{ asset( setting('registration_image')) }}" alt="Tutor Registration Image">
         </div>
 
         <!-- Right Form Section -->
         <div class="form-section">
-            <h1>Tutor Registration Form</h1>
+            <h1>{{setting('registration_title')}}</h1>
+            @if(session('success'))
+            <p style="color: green;">{{ session('success') }}</p>
+            @endif
 
-            <form>
-                <!-- Full Name -->
+            <form id="tutorForm" action="{{ route('frontend.tutor.saveForm') }}" method="POST">
+                @csrf  
                 <div class="form-group">
                     <label for="full-name">Full Name</label>
-                    <input type="text" id="full-name" placeholder="Enter your full name" required />
+                    <input type="text" name="full_name" id="full-name" placeholder="Enter your full name" required />
                 </div>
-
-                <!-- Phone Number -->
+            
                 <div class="form-group">
                     <label for="phone">Phone Number</label>
-                    <input type="tel" id="phone" placeholder="Enter your phone number" required />
+                    <input type="tel" name="phone" id="phone" placeholder="Enter your phone number" required />
                 </div>
-
-                <!-- Email -->
+            
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="email" id="email" placeholder="Enter your email" required />
+                    <input type="email" name="email" id="email" placeholder="Enter your email" required autocomplete="new-email"/>
                 </div>
-
-                <!-- Password -->
+            
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" id="password" placeholder="Enter your password" required />
+                    <input type="password" name="password" id="password" placeholder="Enter your password" required autocomplete="new-password"/>
                 </div>
-
-                <!-- Date of Birth -->
+            
                 <div class="form-group">
                     <label for="dob">Date of Birth</label>
-                    <input type="date" id="dob" required />
+                    <input type="date" name="dob" id="dob" required />
                 </div>
-
-                <!-- Age -->
+            
                 <div class="form-group">
                     <label for="age">Age</label>
-                    <input type="number" id="age" placeholder="Enter your age" required />
+                    <input type="number" name="age" id="age" placeholder="Enter your age" required />
                 </div>
-
-                <!-- Gender -->
+            
                 <div class="form-group">
                     <label>Gender</label>
                     <div class="gender">
-                        <input type="radio" id="female" name="gender" value="Female" required />
+                        <input type="radio" name="gender" id="female" value="Female" required />
                         <label for="female">Female</label>
-
-                        <input type="radio" id="male" name="gender" value="Male" required />
+            
+                        <input type="radio" name="gender" id="male" value="Male" required />
                         <label for="male">Male</label>
-
-                        <input type="radio" id="other" name="gender" value="Other" required />
+            
+                        <input type="radio" name="gender" id="other" value="Other" required />
                         <label for="other">Other</label>
                     </div>
                 </div>
-
+            
                 <!-- Location Button -->
                 <div class="form-group location-button">
-                    <button type="button">Get Your Current Location</button>
+                    <button type="button" id="getLocationBtn">Get Your Current Location</button>
                 </div>
 
-                <!-- Permanent Address -->
+                <!-- Permanent Address Fields -->
                 <div class="form-group">
                     <label for="address">Street Address</label>
-                    <input type="text" id="address" placeholder="Enter Street Address" required />
+                    <input type="text" name="street_address" id="address" placeholder="Enter Street Address" required />
                 </div>
 
                 <div class="form-group">
                     <label for="area">Area</label>
-                    <input type="text" id="area" placeholder="Enter Area" required />
+                    <input type="text" name="area" id="area" placeholder="Enter Area" required />
                 </div>
 
                 <div class="form-group">
                     <label for="city">City</label>
-                    <input type="text" id="city" placeholder="Enter City" required />
+                    <input type="text" name="city" id="city" placeholder="Enter City" required />
                 </div>
 
                 <div class="form-group">
                     <label for="pincode">Pincode</label>
-                    <input type="text" id="pincode" placeholder="Enter Pincode" required />
+                    <input type="text" name="pincode" id="pincode" placeholder="Enter Pincode" required />
                 </div>
 
-                <!-- Submit Button -->
+            
                 <div class="form-group">
-                    <button type="submit">Submit</button>
+                    <button id="submitButton" type="submit">Submit</button>
                 </div>
             </form>
+            
         </div>
     </div>
 

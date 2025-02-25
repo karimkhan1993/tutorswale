@@ -198,11 +198,11 @@
             <div class="footer-col">
                 <h4>company</h4>
                 <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">One-To-One Class</a></li>
+                    <li><a href="{{ route('frontend.home') }}">Home</a></li>
+                    <li><a href="{{ route('frontend.abutus') }}">About Us</a></li>
+                    <li><a href="{{ route('frontend.tutorsection') }}">One-To-One Class</a></li>
                     <li><a href="#">How it's work</a></li>
-                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="{{ route('frontend.contactus') }}">Contact Us</a></li>
                 </ul>
             </div>
             <div class="footer-col">
@@ -227,17 +227,181 @@
             <div class="footer-col">
                 <h4>follow us</h4>
                 <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="{!! setting('facebook_url') !!}"><i class="fab fa-facebook-f"></i></a>
+                    <a href="{!! setting('twitter_url') !!}"><i class="fab fa-twitter"></i></a>
+                    <a href="{!! setting('instagram_url') !!}"><i class="fab fa-instagram"></i></a>
+                    <a href="{!! setting('linkedin_url') !!}"><i class="fab fa-linkedin-in"></i></a>
                 </div>
             </div>
         </div>
     </div>
 </footer>
 <script src="{{ asset('assets/js/script.js') }}"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
 
+<script>
+    const counters = document.querySelectorAll('.number');
+
+    counters.forEach(counter => {
+        counter.innerText = '0+';
+        const updateCounter = () => {
+            const target = +counter.getAttribute('data-target');
+            const current = +counter.innerText.replace('+', '');
+            const increment = target / 200;
+
+            if (current < target) {
+                counter.innerText = `${Math.ceil(current + increment)}+`;
+                setTimeout(updateCounter, 30);
+            } else {
+                counter.innerText = `${target}+`;
+            }
+        };
+        updateCounter();
+    });
+
+</script>
+    <script>
+        /* script.js */
+        const carousel = document.querySelector('.carousel');
+        let currentIndex = 0;
+        let autoplayInterval;
+    
+        // Function to show the next slide
+        function nextSlide() {
+            const items = document.querySelectorAll('.carousel-item');
+            currentIndex = (currentIndex + 1) % items.length;
+            carousel.scrollLeft = carousel.offsetWidth * currentIndex;
+        }
+    
+        // Function to show the previous slide
+        function prevSlide() {
+            const items = document.querySelectorAll('.carousel-item');
+            currentIndex = (currentIndex - 1 + items.length) % items.length;
+            carousel.scrollLeft = carousel.offsetWidth * currentIndex;
+        }
+    
+        // Function to start autoplay
+        function startAutoplay() {
+            autoplayInterval = setInterval(nextSlide, 3000); // Change slides every 3 seconds
+        }
+    
+        // Function to stop autoplay
+        function stopAutoplay() {
+            clearInterval(autoplayInterval);
+        }
+    
+        // Add event listeners for hover to stop and start autoplay
+        carousel.addEventListener('mouseover', stopAutoplay);
+        carousel.addEventListener('mouseout', startAutoplay);
+    
+        // Start autoplay on page load
+        startAutoplay();
+        
+        
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#getLocationBtn").click(function() {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+                } else {
+                    alert("Geolocation is not supported by this browser.");
+                }
+            });
+        
+            function successCallback(position) {
+                let latitude = position.coords.latitude;
+                let longitude = position.coords.longitude;
+        
+                // Google Maps API for reverse geocoding
+                let geocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=YOUR_GOOGLE_MAPS_API_KEY`;
+        
+                $.getJSON(geocodeUrl, function(data) {
+                    if (data.status === "OK") {
+                        let addressComponents = data.results[0].address_components;
+                        let street = "";
+                        let area = "";
+                        let city = "";
+                        let pincode = "";
+        
+                        // Extract relevant address components
+                        addressComponents.forEach(component => {
+                            if (component.types.includes("street_address") || component.types.includes("route")) {
+                                street = component.long_name;
+                            }
+                            if (component.types.includes("sublocality") || component.types.includes("sublocality_level_1")) {
+                                area = component.long_name;
+                            }
+                            if (component.types.includes("locality")) {
+                                city = component.long_name;
+                            }
+                            if (component.types.includes("postal_code")) {
+                                pincode = component.long_name;
+                            }
+                        });
+        
+                        // Auto-fill the form fields
+                        $("#address").val(street);
+                        $("#area").val(area);
+                        $("#city").val(city);
+                        $("#pincode").val(pincode);
+                    } else {
+                        alert("Could not fetch address. Please enter manually.");
+                    }
+                });
+            }
+        
+            function errorCallback(error) {
+                alert("Error fetching location: " + error.message);
+            }
+        });
+
+
+        $(document).ready(function() {
+            // Initialize validation
+            $("#tutorForm").validate({
+                rules: {
+                    full_name: { required: true, minlength: 3 },
+                    phone: { required: true, digits: true, minlength: 10, maxlength: 15 },
+                    email: { required: true, email: true },
+                    password: { required: true, minlength: 6 },
+                    dob: { required: true, date: true },
+                    age: { required: true, number: true, min: 18 },
+                    gender: { required: true },
+                    street_address: { required: true },
+                    area: { required: true },
+                    city: { required: true },
+                    pincode: { required: true, digits: true, minlength: 5 },
+                },
+                messages: {
+                    full_name: "Please enter your full name (at least 3 characters).",
+                    phone: "Enter a valid phone number (10-15 digits).",
+                    email: "Enter a valid email address.",
+                    password: "Password must be at least 6 characters long.",
+                    dob: "Please enter a valid date of birth.",
+                    age: "Enter a valid age (must be 18+).",
+                    gender: "Select your gender.",
+                    street_address: "Enter your street address.",
+                    area: "Enter your area.",
+                    city: "Enter your city.",
+                    pincode: "Enter a valid pincode (min 5 digits).",
+                },
+                submitHandler: function(form) {
+                    // Disable submit button to prevent multiple submissions
+                    $("#submitButton").attr("disabled", true).text("Submitting...");
+                    form.submit();
+                }
+            });
+
+            // Handle location button click (dummy function)
+            $(".location-button button").click(function() {
+                alert("Fetching location...");
+            });
+        });
+
+        </script>
+        
 <style>
     .content-sub-footer {
         color: white;

@@ -1,9 +1,10 @@
 <?php
 
 return [
-
-    'name' => 'Name',
-    'slug' => 'Slug',
+    'subject_id' => 'Subject',
+    'class_id' => 'Class',
+    'session_date' => 'Session Date',
+    'location' => 'Location',
     'description' => 'Description',
     'status' => 'Status',
     'created_by' => 'Created By',
@@ -11,5 +12,4 @@ return [
     'updated_by' => 'Updated By',
     'deleted_by' => 'Deleted By',
     'action' => 'Action',
-
 ];

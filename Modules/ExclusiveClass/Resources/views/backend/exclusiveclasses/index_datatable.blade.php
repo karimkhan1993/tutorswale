@@ -22,7 +22,7 @@
                 @can('add_'.$module_name)
                 <x-buttons.create route='{{ route("backend.$module_name.create") }}' title="{{__('Create')}} {{ ucwords(Str::singular($module_name)) }}" />
                 @endcan
-
+{{-- 
                 @can('restore_'.$module_name)
                 <div class="btn-group">
                     <button class="btn btn-secondary dropdown-toggle" type="button" data-coreui-toggle="dropdown" aria-expanded="false">
@@ -39,7 +39,7 @@
                         </li> -->
                     </ul>
                 </div>
-                @endcan
+                @endcan --}}
             </x-slot>
         </x-backend.section-header>
 
@@ -52,10 +52,19 @@
                                 #
                             </th>
                             <th>
-                                @lang("exclusiveclass::text.name")
+                                @lang("exclusiveclass::text.status")
                             </th>
                             <th>
-                                @lang("exclusiveclass::text.updated_at")
+                                @lang("exclusiveclass::text.session_date")
+                            </th>
+                            <th>
+                                @lang("exclusiveclass::text.description")
+                            </th>
+                            <th>
+                                @lang("exclusiveclass::text.subject_id")
+                            </th>
+                            <th>
+                                @lang("exclusiveclass::text.class_id")
                             </th>
                             <th class="text-end">
                                 @lang("exclusiveclass::text.action")
@@ -105,14 +114,15 @@
                 data: 'id',
                 name: 'id'
             },
-            {
-                data: 'name',
-                name: 'name'
-            },
-            {
-                data: 'updated_at',
-                name: 'updated_at'
-            },
+            { data: 'status', name: 'status',
+                render: function(data, type, full, meta) {
+                    return data == 1 ? 'Active' : 'Inactive';
+                }
+            }, // Fixed column name
+            { data: 'session_date', name: 'session_date' }, // Fixed column name
+            { data: 'description', name: 'description' }, // Fixed column name
+            { data: 'subject_name', name: 'subject_name' },
+            { data: 'class_name', name: 'class_name' }, // Fixed column name
             {
                 data: 'action',
                 name: 'action',
