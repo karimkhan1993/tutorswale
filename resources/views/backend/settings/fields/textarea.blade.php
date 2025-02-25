@@ -24,13 +24,13 @@ $required_mark = ($required != "") ? '<span class="text-danger"> <strong>*</stro
 
 @if($field['name'] == 'aboutus_description' || $field['name'] == 'whyChooseUs_description' || $field['name'] == 'whyChooseUs_statistic')
     @push('texteditor_scripts')
-        <script src="https://cdn.ckeditor.com/4.20.0/standard/ckeditor.js"></script>
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+        <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
         <script>
             document.addEventListener("DOMContentLoaded", function() {
-                CKEDITOR.replace('{{ $field["name"] }}', {
-                    extraAllowedContent: 'div(*)[*]; p(*)[*]; img(*)[*]; h1(*)[*]; h2(*)[*]; h3(*)[*]; a(*)[*]; span(*)[*]',
-                    removePlugins: 'elementspath',
-                    resize_enabled: false
+
+                var quill = new Quill('#{{ $field["name"] }}', {
+                    theme: 'snow'
                 });
             });
         </script>
